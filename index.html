@@ -264,10 +264,10 @@
     }
     .atoz-btn:hover {
       background: rgba(255, 255, 255, 0.15);
-      border-color: #f59e0b;
+      border-color: #8C7756;
       color: #ffffff;
       transform: scale(1.05);
-      box-shadow: 0 12px 36px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 12px 36px rgba(140, 119, 86, 0.35);
     }
     .atoz-btn .btn-arrow-circle {
       width: 32px;
@@ -282,7 +282,7 @@
       transition: all 0.3s ease;
     }
     .atoz-btn:hover .btn-arrow-circle {
-      background: #f59e0b;
+      background: #736145;
       transform: rotate(45deg);
     }
     /* Sticky Side Tab for Free Quote */
@@ -292,7 +292,7 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 45;
-      background: #ff1d25;
+      background: #8C7756;
       color: #ffffff;
       font-family: var(--font-body);
       font-weight: 600;
@@ -302,14 +302,16 @@
       padding: 14px 7px;
       border-top-left-radius: 12px;
       border-bottom-left-radius: 12px;
-      box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-right: none;
+      box-shadow: -4px 6px 20px rgba(15, 23, 42, 0.25);
       writing-mode: vertical-rl;
       transform: translateY(-50%) rotate(180deg);
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .sticky-quote-tab:hover {
-      background: #e0121a;
+      background: #736145;
       padding-right: 12px;
     }
     /* Smooth Accordion */
@@ -826,16 +828,16 @@
         </div>
       </div>
 
-      <!-- Slide 4: GERMAN CNC FABRICATION -->
+      <!-- Slide 4: MASTER ARCHITECTURAL JOINERY -->
       <div class="hero-slide">
         <div class="hero-slide-bg" style="background-image: url('assets/projects/hero-straight.jpg');"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-text-centered">
           <div class="anim-eyebrow text-amber-300 text-xs sm:text-sm font-heading font-semibold tracking-[0.25em] uppercase mb-4">
-            STRESS-FREE EXECUTION
+            MASTER ARCHITECTURAL JOINERY
           </div>
           <h2 class="typo-hero text-white max-w-4xl mb-8">
-            German CNC Precision<br> 48-Hour Dust-Free Fitout
+            Master Factory Craftsmanship<br> Built For Timeless Living
           </h2>
           <div class="hero-single-btn">
             <a href="https://wa.me/919910270754?text=Hi%20AAICA%20Kitchen,%20I%20want%20to%20consult%20Arjun%20Ji." target="_blank" rel="noopener noreferrer" class="atoz-btn">
@@ -849,7 +851,7 @@
 
     <!-- Floating AtoZ-Style Dots Dock at Bottom Right -->
     <div class="hero-dots-dock absolute bottom-8 left-1/2 -translate-x-1/2 z-30 bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20 flex items-center gap-2.5 shadow-2xl">
-      <button class="hero-dot active w-7 h-2 rounded-full bg-amber-400 transition-all duration-300" data-slide="0" aria-label="Slide 1"></button>
+      <button class="hero-dot active w-7 h-2 rounded-full bg-[#8C7756] transition-all duration-300" data-slide="0" aria-label="Slide 1"></button>
       <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/80 transition-all duration-300" data-slide="1" aria-label="Slide 2"></button>
       <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/80 transition-all duration-300" data-slide="2" aria-label="Slide 3"></button>
       <button class="hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/80 transition-all duration-300" data-slide="3" aria-label="Slide 4"></button>
@@ -1911,7 +1913,7 @@
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
                     <span class="text-sm font-heading font-bold text-slate-900">High-Gloss Acrylic</span>
-                    <span class="text-[10px] uppercase font-bold text-amber-700 px-2 py-0.5 rounded-full bg-amber-100/70">Popular</span>
+                    <span class="text-[10px] uppercase font-bold text-[#8C7756] px-2 py-0.5 rounded-full bg-[#8C7756]/15">Popular</span>
                   </div>
                   <div class="text-[11px] text-slate-500 mt-1 font-sans">2mm Senosan &bull; Mirror UV Protected</div>
                 </div>
@@ -1950,7 +1952,7 @@
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
                     <span class="text-sm font-heading font-bold text-slate-900">Lacquered Glass</span>
-                    <span class="text-[10px] uppercase font-bold text-purple-700 px-2 py-0.5 rounded-full bg-purple-100/70">Flagship</span>
+                    <span class="text-[10px] uppercase font-bold text-[#8C7756] px-2 py-0.5 rounded-full bg-[#8C7756]/15">Flagship</span>
                   </div>
                   <div class="text-[11px] text-slate-500 mt-1 font-sans">Slim Profile &bull; Fluted / Tinted Glass</div>
                 </div>
@@ -3225,7 +3227,7 @@
         slides.forEach((s, i) => s.classList.toggle('active', i === idx));
         dots.forEach((d, i) => {
           if (i === idx) {
-            d.className = 'hero-dot active w-7 h-2 rounded-full bg-amber-400 transition-all duration-300';
+            d.className = 'hero-dot active w-7 h-2 rounded-full bg-[#8C7756] transition-all duration-300';
           } else {
             d.className = 'hero-dot w-2 h-2 rounded-full bg-white/40 hover:bg-white/80 transition-all duration-300';
           }
