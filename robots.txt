@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aaica-modular-kitchens.vercel.app/sitemap.xml
+
