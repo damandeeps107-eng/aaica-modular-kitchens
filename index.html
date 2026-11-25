@@ -415,42 +415,81 @@
       animation-play-state: paused;
     }
   
-    /* Buttery-Smooth Scroll Reveal System */
-    .reveal-on-scroll {
+    /* ============================================================
+       COMPLETE, BUTTERY-SMOOTH ANIMATION SYSTEM
+       Includes typography entrances, staggered scroll reveals,
+       subtle directional slides, and elegant micro-interactions
+       ============================================================ */
+    .reveal-on-scroll,
+    .reveal-text,
+    .reveal-scale,
+    .reveal-left,
+    .reveal-right,
+    .reveal-fade {
       opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: none;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
     .has-scroll-anim .reveal-on-scroll:not(.is-revealed) {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(26px);
     }
-    .has-scroll-anim .reveal-on-scroll.is-revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-scale {
-      opacity: 1;
-      transform: scale(1);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+    .has-scroll-anim .reveal-text:not(.is-revealed) {
+      opacity: 0;
+      transform: translateY(18px);
     }
     .has-scroll-anim .reveal-scale:not(.is-revealed) {
       opacity: 0;
-      transform: scale(0.92);
+      transform: scale(0.94);
+    }
+    .has-scroll-anim .reveal-left:not(.is-revealed) {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    .has-scroll-anim .reveal-right:not(.is-revealed) {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    .has-scroll-anim .reveal-fade:not(.is-revealed) {
+      opacity: 0;
+    }
+
+    .has-scroll-anim .reveal-on-scroll.is-revealed,
+    .has-scroll-anim .reveal-text.is-revealed,
+    .has-scroll-anim .reveal-left.is-revealed,
+    .has-scroll-anim .reveal-right.is-revealed {
+      opacity: 1;
+      transform: translate(0, 0);
     }
     .has-scroll-anim .reveal-scale.is-revealed {
       opacity: 1;
       transform: scale(1);
     }
+    .has-scroll-anim .reveal-fade.is-revealed {
+      opacity: 1;
+    }
+
+    .delay-50  { transition-delay: 50ms; }
+    .delay-75  { transition-delay: 75ms; }
     .delay-100 { transition-delay: 100ms; }
     .delay-150 { transition-delay: 150ms; }
     .delay-200 { transition-delay: 200ms; }
     .delay-250 { transition-delay: 250ms; }
     .delay-300 { transition-delay: 300ms; }
+    .delay-350 { transition-delay: 350ms; }
     .delay-400 { transition-delay: 400ms; }
     .delay-500 { transition-delay: 500ms; }
+    .delay-600 { transition-delay: 600ms; }
+
+    /* Interactive Hover Polish */
+    .hover-lift {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.1);
+    }
 
     /* Shimmer Light Reflection on Buttons */
     .btn-shimmer {
@@ -757,7 +796,7 @@
           </div>
           <h2 class="typo-hero text-white max-w-4xl mb-8">
             Factory Direct Joinery<br> 100% IS:710 Marine Ply
-          </h1>
+          </h2>
           <div class="hero-single-btn">
             <a href="#comparison" class="atoz-btn">
               <span>Factory vs Showroom</span>
@@ -777,7 +816,7 @@
           </div>
           <h2 class="typo-hero text-white max-w-4xl mb-8">
             Design Spaces To<br> Make Wonderful Living
-          </h1>
+          </h2>
           <div class="hero-single-btn">
             <button onclick="openInquiryModal()" class="atoz-btn">
               <span>Take Free Counsel</span>
@@ -797,7 +836,7 @@
           </div>
           <h2 class="typo-hero text-white max-w-4xl mb-8">
             German CNC Precision<br> 48-Hour Dust-Free Fitout
-          </h1>
+          </h2>
           <div class="hero-single-btn">
             <a href="https://wa.me/919910270754?text=Hi%20AAICA%20Kitchen,%20I%20want%20to%20consult%20Arjun%20Ji." target="_blank" rel="noopener noreferrer" class="atoz-btn">
               <span>WhatsApp Founder Directly</span>
@@ -822,10 +861,10 @@
   <section id="about" class="py-20 md:py-28 bg-white border-b border-slate-200">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center reveal-on-scroll">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         <!-- Left Column: Big Rounded Image with Overlapping Award Badge -->
-        <div class="lg:col-span-6 relative">
+        <div class="lg:col-span-6 relative reveal-on-scroll">
           <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 aspect-[4/3] relative">
             <img src="assets/projects/about-atelier.jpg" 
                  alt="AAICA Atelier Workshop & Kitchen Studio" 
@@ -833,7 +872,7 @@
           </div>
           
           <!-- Overlapping Gold/Bronze Badge (AtoZ Frame 01) -->
-          <div class="absolute -bottom-6 -right-2 sm:bottom-6 sm:right-6 bg-[#8C7756] text-white p-5 sm:p-6 rounded-2xl shadow-2xl border border-[#A6906D] flex items-center gap-3.5 max-w-[220px]">
+          <div class="absolute -bottom-6 -right-2 sm:bottom-6 sm:right-6 bg-[#8C7756] text-white p-5 sm:p-6 rounded-2xl shadow-2xl border border-[#A6906D] flex items-center gap-3.5 max-w-[220px] reveal-scale delay-200">
             <div class="w-10 h-10 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center font-heading text-lg font-bold border border-amber-400/30">A</div>
             <div>
               <div class="text-[11px] font-heading font-semibold uppercase tracking-wider text-amber-200">Certified Atelier</div>
@@ -845,14 +884,14 @@
         <!-- Right Column: Editorial Copy & 4 Rounded Feature Pills -->
         <div class="lg:col-span-6 space-y-6 lg:pl-4">
           <div>
-            <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-2">
+            <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-2 reveal-text">
               <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
               <span>SINCE 2012</span>
             </div>
-            <h2 class="typo-h2 text-slate-900 mt-2">
+            <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
               Your Trusted Modular Kitchen &amp; <span class="font-medium text-[#8C7756]">Joinery Atelier</span>
             </h2>
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3">
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3 reveal-text delay-150">
               AAICA Modular Kitchen (A Unit of R&amp;R Industries) is a premier East Delhi manufacturing firm specializing in precision modular kitchens, bespoke walk-in wardrobes, and architectural joinery. With over 500+ delivered kitchens across Delhi NCR, our legacy is built on direct factory trust, authentic European hardware, and honest material pricing.
             </p>
           </div>
@@ -860,7 +899,7 @@
           <!-- 4 Feature Pills in 2x2 Grid (AtoZ Frame 01) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
             
-            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition">
+            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition hover-lift reveal-on-scroll delay-150">
               <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-sans font-bold text-slate-700">01</span>
               <div>
                 <div class="text-xs font-heading font-bold text-slate-900"><span data-counter="500" data-suffix="+">500+</span> Kitchens</div>
@@ -868,7 +907,7 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition">
+            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition hover-lift reveal-on-scroll delay-200">
               <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-sans font-bold text-slate-700">02</span>
               <div>
                 <div class="text-xs font-heading font-bold text-slate-900">IS:710 Marine</div>
@@ -876,7 +915,7 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition">
+            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition hover-lift reveal-on-scroll delay-250">
               <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-sans font-bold text-slate-700">03</span>
               <div>
                 <div class="text-xs font-heading font-bold text-slate-900">Direct Factory</div>
@@ -884,7 +923,7 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition">
+            <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-sm hover:border-[#8C7756] transition hover-lift reveal-on-scroll delay-300">
               <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-sans font-bold text-slate-700">04</span>
               <div>
                 <div class="text-xs font-heading font-bold text-slate-900"><span data-counter="10" data-suffix="-Yr">10-Yr</span> Warranty</div>
@@ -895,7 +934,7 @@
           </div>
 
           <!-- Founder Emotional Trust Pledge (Clean Luxury Architectural Palette) -->
-          <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-[#FBF9F5] text-slate-900 border border-[#8C7756]/30 shadow-sm relative overflow-hidden">
+          <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-[#FBF9F5] text-slate-900 border border-[#8C7756]/30 shadow-sm relative overflow-hidden reveal-scale delay-200">
             <div class="absolute -right-4 -bottom-6 text-8xl font-heading text-[#8C7756]/10 pointer-events-none select-none">“</div>
             <div class="flex items-center gap-2 text-[#8C7756] text-xs font-heading font-semibold uppercase tracking-widest mb-3">
               <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
@@ -942,15 +981,15 @@
 
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
       
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-        <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-3 px-4 py-1.5 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-3 px-4 py-1.5 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20 reveal-text">
           <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
           <span>WHAT WE CRAFT</span>
         </div>
-        <h2 class="typo-h2 text-slate-900 mt-2">
+        <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
           What We Craft <span class="font-medium text-[#8C7756]">For You</span>
         </h2>
-        <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-xl mx-auto font-normal">
+        <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-xl mx-auto font-normal reveal-text delay-150">
           Precision modular kitchens and bespoke wardrobes engineered in 100% IS:710 Marine Ply with authentic German hardware.
         </p>
       </div>
@@ -1075,20 +1114,20 @@
       <!-- Header with Right Book Consult Button (AtoZ Frame 03) -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-6 border-b border-slate-200">
         <div>
-          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5">
+          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5 reveal-text">
             <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
             <span>SINCE 2012</span>
           </div>
-          <h2 class="typo-h2 text-slate-900 mt-2">
+          <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
             Why <span class="font-medium text-[#8C7756]">Choose Us</span>
           </h2>
         </div>
         
         <div class="flex items-center gap-6">
-          <p class="text-xs sm:text-sm text-slate-600 font-sans max-w-md hidden lg:block">
+          <p class="text-xs sm:text-sm text-slate-600 font-sans max-w-md hidden lg:block reveal-text delay-150">
             At AAICA, we are more than just a kitchen firm — we are your direct manufacturing partner creating timeless, ergonomic spaces.
           </p>
-          <button onclick="openInquiryModal()" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full text-sm font-sans font-semibold min-h-[46px] transition shadow-md hover:shadow-lg">
+          <button onclick="openInquiryModal()" class="btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full text-sm font-sans font-semibold min-h-[46px] transition shadow-md hover:shadow-lg reveal-scale delay-200">
             <span>Book Consult</span>
             <span class="text-sm">↗</span>
           </button>
@@ -1101,7 +1140,7 @@
         <!-- Left 3 Features -->
         <div class="lg:col-span-4 space-y-8">
           
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-left delay-100">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
             </div>
@@ -1113,7 +1152,7 @@
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-left delay-200">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
@@ -1125,7 +1164,7 @@
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-left delay-300">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </div>
@@ -1141,7 +1180,7 @@
 
         <!-- Center Column: Circular Centerpiece Cutout Image (AtoZ Frame 03) -->
         <div class="lg:col-span-4 flex items-center justify-center py-6">
-          <div class="relative w-72 sm:w-80 h-72 sm:h-80 rounded-full bg-white shadow-2xl border-8 border-white flex items-center justify-center overflow-hidden group">
+          <div class="relative w-72 sm:w-80 h-72 sm:h-80 rounded-full bg-white shadow-2xl border-8 border-white flex items-center justify-center overflow-hidden group reveal-scale delay-150">
             <div class="absolute inset-0 bg-gradient-to-br from-[#8C7756]/10 to-transparent rounded-full z-10 pointer-events-none"></div>
             <img src="assets/aaica/aaica-modular-kitchen-lshape-01.jpg" 
                  alt="Architectural Kitchen Centerpiece" 
@@ -1152,7 +1191,7 @@
         <!-- Right 3 Features -->
         <div class="lg:col-span-4 space-y-8">
           
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-right delay-100">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
             </div>
@@ -1164,7 +1203,7 @@
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-right delay-200">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             </div>
@@ -1176,7 +1215,7 @@
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4 hover-lift p-2 rounded-2xl transition reveal-right delay-300">
             <div class="w-12 h-12 rounded-2xl bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#8C7756]/20">
               <svg class="w-5 h-5 text-[#8C7756]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
@@ -1234,20 +1273,20 @@
       <!-- Section Header with Filter Tabs (AtoZ Frame 05) -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-slate-200">
         <div>
-          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5">
+          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5 reveal-text">
             <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
             <span>PROCESS &amp; EXECUTION</span>
           </div>
-          <h2 class="typo-h2 text-slate-900 mt-2">
+          <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
             Our Latest Kitchen Projects
           </h2>
-          <p class="text-slate-500 text-xs sm:text-sm font-sans mt-1">
+          <p class="text-slate-500 text-xs sm:text-sm font-sans mt-1 reveal-text delay-150">
             Real factory fabrication, German CNC edge-banding, and delivered modular kitchens across Delhi NCR.
           </p>
         </div>
 
         <!-- Filter Chips (100% Interactive Categories) -->
-        <div class="flex flex-wrap items-center gap-2 text-xs font-heading font-bold" id="portfolio-filters">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-heading font-bold reveal-text delay-200" id="portfolio-filters">
           <button type="button" onclick="filterProjects('all', this)" class="portfolio-filter-btn px-4 py-2 rounded-full bg-slate-900 text-white shadow-sm transition">All Work (8)</button>
           <button type="button" onclick="filterProjects('island', this)" class="portfolio-filter-btn px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Island Ateliers</button>
           <button type="button" onclick="filterProjects('parallel', this)" class="portfolio-filter-btn px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Parallel Galley</button>
@@ -1549,30 +1588,30 @@
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Section Header with Editorial Serif Typography -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-slate-200 reveal-on-scroll">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-slate-200">
         <div>
-          <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2">
+          <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2 reveal-text">
             <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
             <span>05 / MATERIAL INTEGRITY &bull; HONEST JOINERY</span>
           </div>
-          <h2 class="typo-h2 text-slate-900 mt-2">
+          <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
             Built for Generations, <span class="font-medium text-[#8C7756]">Not Showrooms</span>
           </h2>
-          <p class="text-sm sm:text-base text-slate-500 font-sans mt-3 max-w-xl">
+          <p class="text-sm sm:text-base text-slate-500 font-sans mt-3 max-w-xl reveal-text delay-150">
             Why discerning Delhi NCR homeowners commission modular kitchens directly from our Jagat Puri workshop.
           </p>
         </div>
-        <div class="hidden lg:block text-right">
+        <div class="hidden lg:block text-right reveal-text delay-200">
           <span class="text-xs font-sans uppercase tracking-widest text-slate-600">Specification Dossier</span>
           <div class="text-xs font-sans font-medium text-slate-600 mt-1">Direct Factory Atelier &bull; Jagat Puri Main Road</div>
         </div>
       </div>
 
       <!-- Two Grand Editorial Architectural Dossiers -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch reveal-on-scroll">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
         
         <!-- Left: AAICA Direct Factory Atelier (7 Columns) - Pure White Luxury Architecture -->
-        <div class="lg:col-span-7 bg-white text-slate-900 rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-xl border-2 border-[#8C7756]/40 flex flex-col justify-between">
+        <div class="lg:col-span-7 bg-white text-slate-900 rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-xl border-2 border-[#8C7756]/40 flex flex-col justify-between reveal-left delay-150">
           <div class="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
           
           <div>
@@ -1660,7 +1699,7 @@
         </div>
 
         <!-- Right: Conventional Retail & Online Portals (5 Columns) -->
-        <div class="lg:col-span-5 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col justify-between">
+        <div class="lg:col-span-5 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col justify-between reveal-right delay-200">
           <div>
             <div class="pb-6 mb-8 border-b border-slate-200">
               <span class="text-xs font-sans font-bold uppercase tracking-widest text-slate-600">Retail &amp; Portal Reality</span>
@@ -1718,18 +1757,18 @@
       <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/85"></div>
     </div>
     
-    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-white reveal-on-scroll">
-      <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-amber-300 uppercase mb-4 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
+      <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-amber-300 uppercase mb-4 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 reveal-text">
         <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
         <span>BESPOKE KITCHEN CONSULTATION</span>
       </div>
-      <h2 class="typo-h2 text-white">
+      <h2 class="typo-h2 text-white reveal-text delay-100">
         Your dream kitchen is just a <span class="font-medium text-amber-300">consultation away</span>
       </h2>
-      <p class="text-sm sm:text-base font-sans text-slate-200 max-w-xl mx-auto mt-4 leading-relaxed font-normal">
+      <p class="text-sm sm:text-base font-sans text-slate-200 max-w-xl mx-auto mt-4 leading-relaxed font-normal reveal-text delay-150">
         Schedule a complimentary 3D CAD design blueprint, on-site laser measurement, and transparent factory-direct quotation with Arjun Ji at our Jagat Puri atelier.
       </p>
-      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 reveal-scale delay-200">
         <button onclick="openInquiryModal()" class="btn-shimmer px-8 py-4 rounded-full bg-white hover:bg-slate-100 text-slate-900 text-xs font-sans font-bold uppercase tracking-widest transition-all shadow-2xl hover:scale-105">
           Get Started &rarr;
         </button>
@@ -1750,18 +1789,18 @@
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-6 border-b border-stone-200/80">
         <div>
-          <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20">
+          <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20 reveal-text">
             <span class="w-2 h-2 rounded-full bg-[#8C7756] animate-pulse"></span>
             <span>06 / INSTANT FACTORY COST ESTIMATOR</span>
           </div>
-          <h2 class="typo-h2 text-slate-900 mt-2">
+          <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
             Plan Your Kitchen with <span class="font-medium text-[#8C7756]">Honest Pricing</span>
           </h2>
-          <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-2xl leading-relaxed font-normal">
+          <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-2xl leading-relaxed font-normal reveal-text delay-150">
             Transparent manufacturing pricing with zero showroom markups. Choose your layout, finish, and scope to view honest factory manufacturing estimates including 18mm IS:710 Marine Ply and authentic European soft-close hardware.
           </p>
         </div>
-        <div class="hidden lg:block text-right">
+        <div class="hidden lg:block text-right reveal-text delay-200">
           <span class="text-xs font-heading font-semibold text-[#8C7756] uppercase tracking-widest block">Direct Factory BOQ</span>
           <span class="text-xs text-slate-500 font-sans">F-165 Jagat Puri Atelier &bull; East Delhi</span>
         </div>
@@ -1770,7 +1809,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         
         <!-- Controls Column (Left) -->
-        <div class="lg:col-span-7 space-y-10">
+        <div class="lg:col-span-7 space-y-10 reveal-left delay-150">
           
           <!-- Step 1: Layout Selection -->
           <div class="space-y-4">
@@ -1952,7 +1991,7 @@
         </div>
 
         <!-- Result Column (Architectural Dossier Card) -->
-        <div class="lg:col-span-5 lg:sticky lg:top-28">
+        <div class="lg:col-span-5 lg:sticky lg:top-28 reveal-right delay-200">
           <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/90 shadow-xl space-y-6">
             
             <!-- Dynamic Layout Live Preview Image -->
@@ -2040,7 +2079,7 @@
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Section Header -->
-      <div class="flex items-center justify-between pb-6 mb-12 border-b border-stone-200/80 text-xs font-heading font-semibold uppercase tracking-widest text-[#8C7756]">
+      <div class="flex items-center justify-between pb-6 mb-12 border-b border-stone-200/80 text-xs font-heading font-semibold uppercase tracking-widest text-[#8C7756] reveal-text">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
           <span>07 / Precision Process</span>
@@ -2049,22 +2088,22 @@
       </div>
 
       <div class="text-center max-w-3xl mx-auto mb-14">
-        <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20">
+        <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20 reveal-text delay-75">
           <span>STRESS-FREE EXECUTION</span>
         </div>
-        <h2 class="typo-h2 text-slate-900 mt-2">
+        <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
           How It <span class="font-medium text-[#8C7756]">Works</span>
         </h2>
-        <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3">
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3 reveal-text delay-150">
           From your first site survey to move-in day — a completely transparent, German CNC-guided architectural experience.
         </p>
       </div>
 
       <!-- 4 Step Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal-on-scroll">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Step 1 -->
-        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
+        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition hover-lift reveal-on-scroll delay-100">
           <div>
             <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">01</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
@@ -2080,7 +2119,7 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
+        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition hover-lift reveal-on-scroll delay-200">
           <div>
             <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">02</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
@@ -2096,7 +2135,7 @@
         </div>
 
         <!-- Step 3 -->
-        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
+        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition hover-lift reveal-on-scroll delay-300">
           <div>
             <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">03</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
@@ -2112,7 +2151,7 @@
         </div>
 
         <!-- Step 4 -->
-        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
+        <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition hover-lift reveal-on-scroll delay-400">
           <div>
             <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">04</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
@@ -2130,7 +2169,7 @@
       </div>
 
       <!-- Warm Architectural Handover Guarantee Banner -->
-      <div class="mt-12 bg-[#FBF9F5] border border-[#8C7756]/30 rounded-3xl p-8 sm:p-10 text-slate-900 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+      <div class="mt-12 bg-[#FBF9F5] border border-[#8C7756]/30 rounded-3xl p-8 sm:p-10 text-slate-900 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md reveal-scale delay-200">
         <div>
           <p class="font-heading font-semibold text-xl sm:text-2xl text-slate-900">
             &ldquo;Designed to perfection. Delivered on time.&rdquo;
@@ -2161,27 +2200,27 @@
       <!-- Section Header with Subtitle and Live Sliding Indicator -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div class="max-w-2xl">
-          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5">
+          <div class="inline-flex items-center gap-2 text-xs font-heading font-semibold tracking-widest text-[#8C7756] uppercase mb-1.5 reveal-text">
             <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
             <span>CLIENT FEEDBACK</span>
           </div>
-          <h2 class="typo-h2 text-slate-900 mt-2">
+          <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
             Hear From <span class="font-medium text-[#8C7756]">Our Clients</span>
           </h2>
-          <p class="text-slate-600 text-sm font-sans mt-1">
+          <p class="text-slate-600 text-sm font-sans mt-1 reveal-text delay-150">
             Real Delhi NCR homeowners on our factory finish, on-time handover, and genuine 18mm marine ply.
           </p>
         </div>
 
         <!-- Autoplay Indicator Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[11px] font-heading font-bold text-amber-800">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[11px] font-heading font-bold text-amber-800 reveal-scale delay-150">
           <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
           <span>Hover to Pause • Auto-Sliding</span>
         </div>
       </div>
 
       <!-- Moving Testimonials Infinite Auto-Scroll Carousel -->
-      <div id="testimonials-wrapper" class="overflow-hidden py-4 -mx-4 px-4 sm:-mx-8 sm:px-8">
+      <div id="testimonials-wrapper" class="overflow-hidden py-4 -mx-4 px-4 sm:-mx-8 sm:px-8 reveal-on-scroll delay-200">
         <div class="testimonials-slide-track">
           
           <!-- Testimonial 1 -->
@@ -2478,21 +2517,21 @@
 
   <!-- Our Brand Partners: Continuous Infinite Logo Tape (AAICA Official Website Reference) -->
   <section id="brands" class="py-20 md:py-24 bg-[#FAF8F5] border-b border-stone-200/80 overflow-hidden relative">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 mb-10 text-center reveal-on-scroll">
-      <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 mb-10 text-center">
+      <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2 reveal-text">
         <span class="w-1.5 h-1.5 rounded-full bg-[#8C7756]"></span>
         <span>AUTHENTIC HARDWARE &amp; MATERIALS</span>
       </div>
-      <h2 class="typo-h2 text-slate-900 mt-2">
+      <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
         Our <span class="font-medium text-[#8C7756]">Brands</span>
       </h2>
-      <p class="text-sm text-slate-600 font-sans mt-2 max-w-xl mx-auto">
+      <p class="text-sm text-slate-600 font-sans mt-2 max-w-xl mx-auto reveal-text delay-150">
         Certified global hardware and calibrated marine ply alliances engineered into every AAICA modular kitchen.
       </p>
     </div>
 
     <!-- Infinite Continuous Sliding Tape -->
-    <div class="relative w-full overflow-hidden py-4">
+    <div class="relative w-full overflow-hidden py-4 reveal-fade delay-200">
       <!-- Gradient Fades on Left & Right for seamless transition -->
       <div class="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10 pointer-events-none"></div>
       <div class="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-[#FAF8F5] to-transparent z-10 pointer-events-none"></div>
@@ -2552,16 +2591,16 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
         <!-- Left: Showroom Visit, Direct Details & Live Google Map (6 cols) -->
-        <div class="lg:col-span-6 space-y-8">
+        <div class="lg:col-span-6 space-y-8 reveal-left delay-100">
           <div>
-            <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20">
+            <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-2 px-3.5 py-1 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20 reveal-text">
               <span class="w-1.5 h-1.5 rounded-full bg-[#8C7756]"></span>
               <span>SHOWROOM &amp; ATELIER VISIT</span>
             </div>
-            <h2 class="typo-h2 text-slate-900 mt-2">
+            <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
               Book Your Free <span class="font-medium text-[#8C7756]">Design Consultation</span>
             </h2>
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3 max-w-lg">
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3 max-w-lg reveal-text delay-150">
               Speak directly with our founders Arjun &amp; Ajay Ji — completely free, zero obligation. Visit our Jagat Puri showroom &amp; workshop to inspect raw 18mm IS:710 marine ply and hardware firsthand.
             </p>
           </div>
@@ -2633,7 +2672,7 @@
         </div>
 
         <!-- Right: Clean High-Converting Booking Form Card (6 cols) -->
-        <div class="lg:col-span-6 bg-[#FAF8F5] border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-lg">
+        <div class="lg:col-span-6 bg-[#FAF8F5] border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-lg reveal-right delay-200">
           <div class="mb-6">
             <h3 class="text-2xl font-heading text-slate-900">
               Get Free 3D Design &amp; <span class="font-medium text-[#8C7756]">Factory Quote</span>
@@ -2738,22 +2777,22 @@
   <section id="faq" class="py-20 md:py-28 bg-white border-b border-slate-200">
     <div class="max-w-[1000px] mx-auto px-4 sm:px-8">
       
-      <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-        <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-[0.25em] text-[#8C7756] uppercase mb-2 reveal-text">
           <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
           <span>FREQUENTLY ASKED QUESTIONS</span>
         </div>
-        <h2 class="typo-h2 text-slate-900 mt-2">
+        <h2 class="typo-h2 text-slate-900 mt-2 reveal-text delay-100">
           Everything You Need <span class="font-medium text-[#8C7756]">To Know</span>
         </h2>
-        <p class="text-slate-500 text-sm font-sans mt-3">
+        <p class="text-slate-500 text-sm font-sans mt-3 reveal-text delay-150">
           Direct clarity on materials, factory fabrication, hardware warranties, and timelines.
         </p>
       </div>
 
       <div class="space-y-4">
         
-        <div class="accordion-item border-b border-slate-200 py-6 transition">
+        <div class="accordion-item border-b border-slate-200 py-6 transition reveal-on-scroll delay-100">
           <button class="w-full flex items-center justify-between text-left group">
             <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               1. Why choose 100% IS:710 Marine Ply over commercial MDF or particle board?
@@ -2767,7 +2806,7 @@
           </div>
         </div>
 
-        <div class="accordion-item border-b border-slate-200 py-6 transition">
+        <div class="accordion-item border-b border-slate-200 py-6 transition reveal-on-scroll delay-150">
           <button class="w-full flex items-center justify-between text-left group">
             <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               2. Can I visit your Jagat Puri factory to inspect materials before cutting?
@@ -2781,7 +2820,7 @@
           </div>
         </div>
 
-        <div class="accordion-item border-b border-slate-200 py-6 transition">
+        <div class="accordion-item border-b border-slate-200 py-6 transition reveal-on-scroll delay-200">
           <button class="w-full flex items-center justify-between text-left group">
             <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               3. How much does an AAICA modular kitchen cost compared to retail showrooms?
@@ -2795,7 +2834,7 @@
           </div>
         </div>
 
-        <div class="accordion-item border-b border-slate-200 py-6 transition">
+        <div class="accordion-item border-b border-slate-200 py-6 transition reveal-on-scroll delay-250">
           <button class="w-full flex items-center justify-between text-left group">
             <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               4. What warranty is provided on German Blum and Häfele motion hardware?
@@ -2809,7 +2848,7 @@
           </div>
         </div>
 
-        <div class="accordion-item border-b border-slate-200 py-6 transition">
+        <div class="accordion-item border-b border-slate-200 py-6 transition reveal-on-scroll delay-300">
           <button class="w-full flex items-center justify-between text-left group">
             <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               5. How long does the complete manufacturing and on-site fitout take?
@@ -2842,7 +2881,7 @@
     
     <!-- Top Showroom Atelier Highlight Card (Clean White & Warm Bronze Luxury) -->
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 mb-16">
-      <div class="rounded-3xl bg-white border border-[#8C7756]/30 p-8 sm:p-10 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div class="rounded-3xl bg-white border border-[#8C7756]/30 p-8 sm:p-10 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 reveal-scale delay-100">
         <div class="space-y-2.5 max-w-2xl">
           <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold uppercase tracking-[0.2em] text-[#8C7756]">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -2877,7 +2916,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-stone-300/80">
         
         <!-- Col 1: Brand & Official Contact Details (4 cols) -->
-        <div class="lg:col-span-4 space-y-4">
+        <div class="lg:col-span-4 space-y-4 reveal-on-scroll delay-100">
           <a href="#top" onclick="goHome(); return false;" class="inline-block bg-white px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200">
             <img src="assets/aaica-original-logo.png" 
                  alt="AAICA Bath N Kitchen" 
@@ -2926,7 +2965,7 @@
         </div>
 
         <!-- Col 2: WARDROBE (Official Column - 2 cols) -->
-        <div class="lg:col-span-2 space-y-3">
+        <div class="lg:col-span-2 space-y-3 reveal-on-scroll delay-150">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Wardrobe</div>
           <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="hover:text-[#8C7756] transition">Walk-In Wardrobe</a></li>
@@ -2944,7 +2983,7 @@
         </div>
 
         <!-- Col 3: KITCHEN TYPE (Official Column - 3 cols) -->
-        <div class="lg:col-span-3 space-y-3">
+        <div class="lg:col-span-3 space-y-3 reveal-on-scroll delay-200">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Kitchen Type</div>
           <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="hover:text-[#8C7756] transition">Straight Kitchen</a></li>
@@ -2957,7 +2996,7 @@
         </div>
 
         <!-- Col 4: PRODUCTS & Consultation (3 cols) -->
-        <div class="lg:col-span-3 space-y-3">
+        <div class="lg:col-span-3 space-y-3 reveal-on-scroll delay-250">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Products</div>
           <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=modular-kitchen" onclick="openCategoryPage('modular-kitchen'); return false;" class="hover:text-[#8C7756] transition">Modular Kitchen</a></li>
@@ -3960,8 +3999,8 @@
         </div>
       `).join('');
 
-      const galleryHtml = data.gallery.map(item => `
-        <div class="group bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+      const galleryHtml = data.gallery.map((item, idx) => `
+        <div class="group bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover-lift reveal-on-scroll delay-${((idx % 3) + 1) * 100}">
           <div onclick="openGalleryZoom('${item.img.replace(/'/g, "\\'")}', '${item.title.replace(/'/g, "\\'")}', '${item.spec.replace(/'/g, "\\'")}', '${data.title.replace(/'/g, "\\'")}')" class="relative h-64 overflow-hidden cursor-pointer">
             <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
@@ -4143,6 +4182,9 @@
         history.pushState({ categoryPage: slug }, '', '#page=' + slug);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (typeof window.refreshScrollReveal === 'function') {
+        setTimeout(() => window.refreshScrollReveal(catView), 60);
+      }
     }
 
     function goHome() {
@@ -4154,6 +4196,9 @@
         history.pushState({}, '', window.location.pathname);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (typeof window.refreshScrollReveal === 'function') {
+        setTimeout(() => window.refreshScrollReveal(mainContent), 60);
+      }
     }
 
     function navigateToSection(sectionId) {
@@ -4192,6 +4237,54 @@
     window.addEventListener('hashchange', handleHashRouting);
     window.addEventListener('DOMContentLoaded', handleHashRouting);
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeInquiryModal(); closeProjectLightbox(); } });
+
+    // 12. Complete, Buttery-Smooth Scroll Reveal Engine
+    (function initScrollRevealEngine() {
+      document.documentElement.classList.add('has-scroll-anim');
+
+      const selector = '.reveal-on-scroll, .reveal-text, .reveal-scale, .reveal-left, .reveal-right, .reveal-fade';
+
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll(selector).forEach(el => el.classList.add('is-revealed'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px 0px -30px 0px',
+        threshold: 0.08
+      });
+
+      function registerElements(parent) {
+        const root = parent || document;
+        const els = root.querySelectorAll(selector);
+        const winHeight = window.innerHeight;
+        els.forEach(el => {
+          if (el.classList.contains('is-revealed')) return;
+          const rect = el.getBoundingClientRect();
+          if (rect.top < winHeight && rect.bottom > 0) {
+            el.classList.add('is-revealed');
+          } else {
+            observer.observe(el);
+          }
+        });
+      }
+
+      window.refreshScrollReveal = registerElements;
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => registerElements());
+      } else {
+        registerElements();
+      }
+    })();
 
   </script>
 
