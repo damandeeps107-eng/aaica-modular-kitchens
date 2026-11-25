@@ -9,7 +9,7 @@
   <!-- Fonts: Manrope (Headings) & Inter (Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -59,22 +59,33 @@
       --font-heading: 'Manrope', system-ui, -apple-system, sans-serif;
       --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-      /* Fluid Typography Scale (Desktop + Mobile) */
-      --text-hero: clamp(2.125rem, 1.4rem + 2.6vw, 4rem);         /* 34px -> 64px */
-      --text-h2: clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem);        /* 28px -> 44px */
-      --text-h3: clamp(1.375rem, 1.15rem + 0.7vw, 2rem);          /* 22px -> 32px */
-      --text-card: clamp(1.125rem, 1.05rem + 0.3vw, 1.375rem);    /* 18px -> 22px */
+      /* Fluid Typography Scale (Desktop + Mobile, 1rem = 16px) */
+      --text-hero: clamp(2.125rem, 1.45rem + 2.6vw, 4rem);        /* 34px mobile -> 56.5–64px desktop */
+      --text-h2: clamp(1.75rem, 1.35rem + 1.35vw, 2.75rem);       /* 28px mobile -> 38.9–44px desktop */
+      --text-h3: clamp(1.375rem, 1.15rem + 0.7vw, 2rem);          /* 22px mobile -> 30.6–32px desktop */
+      --text-card: clamp(1.125rem, 1.05rem + 0.3vw, 1.375rem);    /* 18px mobile -> 21–22px desktop */
       --text-sub: clamp(1rem, 0.95rem + 0.2vw, 1.1875rem);        /* 16px -> 19px */
-      --text-body: clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem);  /* 15px -> 17px */
+      --text-body: clamp(0.9375rem, 0.9rem + 0.14vw, 1.0625rem);  /* 15px -> 16.4–17px */
       --text-small: 0.875rem;                                     /* 14px */
       --text-label: 0.75rem;                                      /* 12px */
+
+      /* Layout & Rhythm Tokens */
+      --container-max: 1440px;
+      --radius-card: 1.5rem;
+      --radius-pill: 9999px;
     }
-    html, body {
+    html {
+      font-size: 16px;
+      overflow-x: clip;
+      max-width: 100%;
+    }
+    body {
       overflow-x: clip;
       max-width: 100%;
       font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.65;
+      font-size: var(--text-body);
+      line-height: 1.68;
+      color: #1A1816;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -92,7 +103,7 @@
       font-family: var(--font-heading);
       font-size: var(--text-h2);
       font-weight: 600;
-      line-height: 1.2;
+      line-height: 1.18;
       letter-spacing: -0.02em;
     }
     .typo-h3 {
@@ -113,6 +124,26 @@
       font-size: var(--text-body);
       font-weight: 400;
       line-height: 1.7;
+    }
+    /* Keyboard Focus Accessibility */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #8C7756;
+      outline-offset: 2px;
+    }
+    /* Respect User Motion Preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .marquee-track, .marquee-outline-track, .testimonials-slide-track, .brand-tape-track {
+        animation: none !important;
+      }
+      .hero-slide.active .hero-slide-bg {
+        transform: none !important;
+      }
     }
     ::selection {
       background-color: #F59E0B;
@@ -509,7 +540,7 @@
 
   <!-- Floating Sticky Side Tab (Woodspace Style FREE QUOTE) -->
   <a href="https://wa.me/919910270754?text=Hi%20AAICA%20Kitchen,%20I%20want%20to%20get%20a%20Free%203D%20Kitchen%20Design%20Quote." 
-     target="_blank" 
+     target="_blank" rel="noopener noreferrer" 
      class="sticky-quote-tab hidden sm:flex items-center justify-center gap-1.5 group tracking-wider" onclick="openInquiryModal()"
      title="Get Free 3D Design Quote">
     <svg class="w-3.5 h-3.5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -517,7 +548,7 @@
   </a>
 
   <!-- Top Utility Bar (Official Contacts, Gmail & Socials - Matching AAICA Official Website) -->
-  <div class="bg-[#F4EFE6] text-slate-700 text-[11px] font-sans border-b border-stone-200 hidden md:block">
+  <div class="bg-[#F4EFE6] text-slate-700 text-xs font-sans border-b border-stone-200 hidden md:block">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 h-9 flex items-center justify-between">
       <div class="flex items-center gap-5">
         <a href="mailto:info.aaica@gmail.com" class="inline-flex items-center gap-1.5 hover:text-[#8C7756] transition">
@@ -535,7 +566,7 @@
         <span class="hidden xl:inline text-slate-600">F-165 Jagat Puri, Near F-Block Bus Stand, Delhi-110051</span>
       </div>
       <div class="flex items-center gap-3.5">
-        <span class="text-slate-500 uppercase tracking-widest text-[10px] font-heading font-bold">Follow AAICA:</span>
+        <span class="text-slate-700 uppercase tracking-wider text-xs font-sans font-medium">Follow AAICA:</span>
         <a href="https://www.instagram.com/aaica_modular_kitchen/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="@aaica_modular_kitchen on Instagram" class="text-slate-600 hover:text-pink-600 transition">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
@@ -564,88 +595,88 @@
                class="h-10 sm:h-11 w-auto object-contain transition duration-200 group-hover:scale-102">
         </a>
         <a href="https://wa.me/919899301054?text=Hi%20AAICA%20Team%2C%20I%20am%20exploring%20modular%20kitchens%20on%20your%20website." 
-           target="_blank"
+           target="_blank" rel="noopener noreferrer"
            class="hidden 2xl:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-sans font-bold transition shadow-sm">
           <span class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
           <span>+91 98993 01054</span>
         </a>
       </div>
 
-      <!-- Desktop Nav (Official Dropdowns: PRODUCTS, KITCHEN, WARDROBE + Key Sections) -->
-      <nav class="hidden lg:flex items-center gap-4 xl:gap-6 text-[11px] xl:text-xs font-heading font-semibold uppercase tracking-wider text-slate-800">
+      <!-- Desktop Nav (Official Dropdowns: Products, Kitchen, Wardrobe + Key Sections) -->
+      <nav aria-label="Primary Navigation" class="hidden lg:flex items-center gap-4 xl:gap-6 text-[14px] font-sans font-medium text-slate-800">
         
-        <a href="#top" onclick="goHome(); return false;" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">Home</a>
-        <a href="#about" onclick="navigateToSection('#about')" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">About Us</a>
+        <a href="#top" onclick="goHome(); return false;" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">Home</a>
+        <a href="#about" onclick="navigateToSection('#about')" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">About Us</a>
 
-        <!-- PRODUCTS Dropdown -->
-        <div class="relative group py-2">
-          <button type="button" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition uppercase whitespace-nowrap focus:outline-none">
+        <!-- Products Dropdown -->
+        <div class="relative group">
+          <button type="button" aria-haspopup="true" aria-expanded="false" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition-colors whitespace-nowrap py-2">
             <span>Products</span>
-            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
-          <div class="absolute left-0 top-full pt-2 w-60 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
-            <div class="bg-white rounded-2xl shadow-2xl border border-stone-200/90 py-2.5 overflow-hidden">
-              <div class="px-4 py-1.5 text-[10px] font-sans text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">All Product Lines</div>
-              <a href="#page=modular-kitchen" onclick="openCategoryPage('modular-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Modular Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=modular-wardrobe" onclick="openCategoryPage('modular-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Modular Wardrobe</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Bathroom Vanity</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=tv-panel" onclick="openCategoryPage('tv-panel'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>TV Panel</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=wall-panelling" onclick="openCategoryPage('wall-panelling'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Wall Panelling</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
+          <div class="absolute left-0 top-full pt-2 w-60 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200 z-50">
+            <div class="bg-white rounded-2xl shadow-xl border border-stone-200/90 py-2.5 overflow-hidden">
+              <div class="px-4 py-1.5 text-[11px] font-sans font-semibold text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">All Product Lines</div>
+              <a href="#page=modular-kitchen" onclick="openCategoryPage('modular-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Modular Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=modular-wardrobe" onclick="openCategoryPage('modular-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Modular Wardrobe</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Bathroom Vanity</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=tv-panel" onclick="openCategoryPage('tv-panel'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>TV Panel</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=wall-panelling" onclick="openCategoryPage('wall-panelling'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Wall Panelling</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
             </div>
           </div>
         </div>
 
-        <!-- KITCHEN Dropdown -->
-        <div class="relative group py-2">
-          <button type="button" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition uppercase whitespace-nowrap focus:outline-none">
+        <!-- Kitchen Dropdown -->
+        <div class="relative group">
+          <button type="button" aria-haspopup="true" aria-expanded="false" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition-colors whitespace-nowrap py-2">
             <span>Kitchen</span>
-            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
-          <div class="absolute left-0 top-full pt-2 w-60 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
-            <div class="bg-white rounded-2xl shadow-2xl border border-stone-200/90 py-2.5 overflow-hidden">
-              <div class="px-4 py-1.5 text-[10px] font-sans text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">Kitchen Layouts</div>
-              <a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Straight Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=l-shape-kitchen" onclick="openCategoryPage('l-shape-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>L-Shape Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=u-shape-kitchen" onclick="openCategoryPage('u-shape-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>U-Shape Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=parallel-kitchen" onclick="openCategoryPage('parallel-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Parallel Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=peninsula-kitchen" onclick="openCategoryPage('peninsula-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Peninsula Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=island-kitchen" onclick="openCategoryPage('island-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Island Kitchen</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
+          <div class="absolute left-0 top-full pt-2 w-60 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200 z-50">
+            <div class="bg-white rounded-2xl shadow-xl border border-stone-200/90 py-2.5 overflow-hidden">
+              <div class="px-4 py-1.5 text-[11px] font-sans font-semibold text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">Kitchen Layouts</div>
+              <a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Straight Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=l-shape-kitchen" onclick="openCategoryPage('l-shape-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>L-Shape Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=u-shape-kitchen" onclick="openCategoryPage('u-shape-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>U-Shape Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=parallel-kitchen" onclick="openCategoryPage('parallel-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Parallel Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=peninsula-kitchen" onclick="openCategoryPage('peninsula-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Peninsula Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=island-kitchen" onclick="openCategoryPage('island-kitchen'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Island Kitchen</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
             </div>
           </div>
         </div>
 
-        <!-- WARDROBE Dropdown -->
-        <div class="relative group py-2">
-          <button type="button" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition uppercase whitespace-nowrap focus:outline-none">
+        <!-- Wardrobe Dropdown -->
+        <div class="relative group">
+          <button type="button" aria-haspopup="true" aria-expanded="false" class="inline-flex items-center gap-1 hover:text-[#8C7756] transition-colors whitespace-nowrap py-2">
             <span>Wardrobe</span>
-            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-[#8C7756] group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
-          <div class="absolute left-0 top-full pt-2 w-64 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 z-50">
-            <div class="bg-white rounded-2xl shadow-2xl border border-stone-200/90 py-2.5 overflow-hidden">
-              <div class="px-4 py-1.5 text-[10px] font-sans text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">Wardrobe Styles</div>
-              <a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Walk-In Wardrobe</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=sliding-door-wardrobe" onclick="openCategoryPage('sliding-door-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Sliding Door Wardrobe</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
-              <a href="#page=openable-shutter-wardrobe" onclick="openCategoryPage('openable-shutter-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-xs font-heading font-bold text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition"><span>Openable Shutter Wardrobe</span><span class="text-[#8C7756] opacity-60">&rarr;</span></a>
+          <div class="absolute left-0 top-full pt-2 w-64 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200 z-50">
+            <div class="bg-white rounded-2xl shadow-xl border border-stone-200/90 py-2.5 overflow-hidden">
+              <div class="px-4 py-1.5 text-[11px] font-sans font-semibold text-[#8C7756] uppercase tracking-widest border-b border-stone-100 mb-1">Wardrobe Styles</div>
+              <a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Walk-In Wardrobe</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=sliding-door-wardrobe" onclick="openCategoryPage('sliding-door-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Sliding Door Wardrobe</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
+              <a href="#page=openable-shutter-wardrobe" onclick="openCategoryPage('openable-shutter-wardrobe'); return false;" class="flex items-center justify-between px-4 py-2.5 text-sm font-sans font-medium text-slate-800 hover:bg-[#FAF8F5] hover:text-[#8C7756] transition-colors"><span>Openable Shutter Wardrobe</span><span class="text-[#8C7756] opacity-70">&rarr;</span></a>
             </div>
           </div>
         </div>
 
-        <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">Vanity</a>
-        <a href="#calculator" onclick="navigateToSection('#calculator')" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">Estimator</a>
-        <a href="#reviews" onclick="navigateToSection('#reviews')" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">Reviews</a>
-        <a href="#contact" onclick="navigateToSection('#contact')" class="hover:text-[#8C7756] transition py-2 whitespace-nowrap">Contact Us</a>
+        <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">Vanity</a>
+        <a href="#calculator" onclick="navigateToSection('#calculator')" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">Estimator</a>
+        <a href="#reviews" onclick="navigateToSection('#reviews')" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">Reviews</a>
+        <a href="#contact" onclick="navigateToSection('#contact')" class="hover:text-[#8C7756] transition-colors py-2 whitespace-nowrap">Contact Us</a>
       </nav>
 
       <!-- Header CTAs & Mobile Toggle -->
       <div class="flex items-center gap-3 sm:gap-4 flex-shrink-0">
         <!-- Direct Free Quote Pill Button -->
-        <button onclick="openInquiryModal()" class="inline-flex items-center gap-2 bg-[#8C7756] hover:bg-[#736145] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs font-heading font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+        <button type="button" onclick="openInquiryModal()" class="inline-flex items-center justify-center gap-2 bg-[#8C7756] hover:bg-[#736145] text-white px-5 sm:px-6 min-h-[44px] rounded-full text-[14px] font-sans font-semibold shadow-sm hover:shadow-md transition-all whitespace-nowrap">
           <span>Get Free Quote</span>
-          <span class="text-sm">&nearr;</span>
+          <span aria-hidden="true" class="text-sm">&nearr;</span>
         </button>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-toggle" class="lg:hidden p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 transition focus:outline-none" aria-label="Toggle Navigation">
+        <button type="button" id="mobile-menu-toggle" class="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 transition" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="mobile-menu-dropdown">
           <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
@@ -655,31 +686,31 @@
 
     <!-- Mobile Slide-Down Menu (Includes Expandable Category Links) -->
     <div id="mobile-menu-dropdown" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-6 space-y-4 shadow-xl max-h-[80vh] overflow-y-auto">
-      <div class="space-y-3 text-sm font-heading font-bold uppercase tracking-wider text-slate-900">
+      <div class="space-y-3 text-[15px] font-sans font-medium text-slate-900">
         <a href="#top" onclick="goHome(); return false;" class="block hover:text-[#8C7756] py-1 transition mobile-nav-link">Home</a>
         <a href="#about" onclick="navigateToSection('#about')" class="block hover:text-[#8C7756] py-1 transition mobile-nav-link">About Atelier</a>
         
         <div class="pt-2 border-t border-slate-100">
           <div class="text-[10px] font-sans text-[#8C7756] uppercase tracking-widest mb-2">Kitchen Layouts</div>
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Straight Kitchen</a>
-            <a href="#page=l-shape-kitchen" onclick="openCategoryPage('l-shape-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">L-Shape Kitchen</a>
-            <a href="#page=u-shape-kitchen" onclick="openCategoryPage('u-shape-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">U-Shape Kitchen</a>
-            <a href="#page=parallel-kitchen" onclick="openCategoryPage('parallel-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Parallel Kitchen</a>
-            <a href="#page=peninsula-kitchen" onclick="openCategoryPage('peninsula-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Peninsula Kitchen</a>
-            <a href="#page=island-kitchen" onclick="openCategoryPage('island-kitchen'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Island Kitchen</a>
+            <a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Straight Kitchen</a>
+            <a href="#page=l-shape-kitchen" onclick="openCategoryPage('l-shape-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">L-Shape Kitchen</a>
+            <a href="#page=u-shape-kitchen" onclick="openCategoryPage('u-shape-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">U-Shape Kitchen</a>
+            <a href="#page=parallel-kitchen" onclick="openCategoryPage('parallel-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Parallel Kitchen</a>
+            <a href="#page=peninsula-kitchen" onclick="openCategoryPage('peninsula-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Peninsula Kitchen</a>
+            <a href="#page=island-kitchen" onclick="openCategoryPage('island-kitchen'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Island Kitchen</a>
           </div>
         </div>
 
         <div class="pt-2 border-t border-slate-100">
           <div class="text-[10px] font-sans text-[#8C7756] uppercase tracking-widest mb-2">Products &amp; Wardrobes</div>
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Walk-In Wardrobe</a>
-            <a href="#page=sliding-door-wardrobe" onclick="openCategoryPage('sliding-door-wardrobe'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Sliding Wardrobe</a>
-            <a href="#page=openable-shutter-wardrobe" onclick="openCategoryPage('openable-shutter-wardrobe'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Openable Wardrobe</a>
-            <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Bathroom Vanity</a>
-            <a href="#page=tv-panel" onclick="openCategoryPage('tv-panel'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">TV Panel</a>
-            <a href="#page=wall-panelling" onclick="openCategoryPage('wall-panelling'); return false;" class="py-1.5 text-slate-700 hover:text-[#8C7756] mobile-nav-link">Wall Panelling</a>
+            <a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Walk-In Wardrobe</a>
+            <a href="#page=sliding-door-wardrobe" onclick="openCategoryPage('sliding-door-wardrobe'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Sliding Wardrobe</a>
+            <a href="#page=openable-shutter-wardrobe" onclick="openCategoryPage('openable-shutter-wardrobe'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Openable Wardrobe</a>
+            <a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Bathroom Vanity</a>
+            <a href="#page=tv-panel" onclick="openCategoryPage('tv-panel'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">TV Panel</a>
+            <a href="#page=wall-panelling" onclick="openCategoryPage('wall-panelling'); return false;" class="py-2 text-sm font-sans font-medium text-slate-700 hover:text-[#8C7756] block mobile-nav-link">Wall Panelling</a>
           </div>
         </div>
 
@@ -768,7 +799,7 @@
             German CNC Precision<br> 48-Hour Dust-Free Fitout
           </h1>
           <div class="hero-single-btn">
-            <a href="https://wa.me/919910270754?text=Hi%20AAICA%20Kitchen,%20I%20want%20to%20consult%20Arjun%20Ji." target="_blank" class="atoz-btn">
+            <a href="https://wa.me/919910270754?text=Hi%20AAICA%20Kitchen,%20I%20want%20to%20consult%20Arjun%20Ji." target="_blank" rel="noopener noreferrer" class="atoz-btn">
               <span>WhatsApp Founder Directly</span>
               <span class="btn-arrow-circle">↗</span>
             </a>
@@ -819,7 +850,7 @@
               <span>SINCE 2012</span>
             </div>
             <h2 class="typo-h2 text-slate-900 mt-2">
-              Your Trusted Modular Kitchen &amp; <span class="italic font-normal">Joinery Atelier</span>
+              Your Trusted Modular Kitchen &amp; <span class="font-medium text-[#8C7756]">Joinery Atelier</span>
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3">
               AAICA Modular Kitchen (A Unit of R&amp;R Industries) is a premier East Delhi manufacturing firm specializing in precision modular kitchens, bespoke walk-in wardrobes, and architectural joinery. With over 500+ delivered kitchens across Delhi NCR, our legacy is built on direct factory trust, authentic European hardware, and honest material pricing.
@@ -870,7 +901,7 @@
               <span class="w-2 h-2 rounded-full bg-[#8C7756]"></span>
               <span>FOUNDER'S SACRED PLEDGE &bull; ARJUN &amp; AJAY JI</span>
             </div>
-            <p class="text-slate-800 text-sm sm:text-base font-heading italic leading-relaxed">
+            <p class="text-slate-800 text-[15px] sm:text-base font-sans font-normal leading-relaxed">
               &ldquo;In every Indian home, a kitchen is never just modular cabinetry — it is where the mother pours unconditional love into every meal, where families gather at the end of hard days. At our Jagat Puri workshop, we treat every kitchen as if we are building it for our own parents. No shortcuts, no commercial fake ply, no inflated broker margins. Just honest 710 marine strength, German smooth motion, and our personal family pride on every shutter.&rdquo;
             </p>
             <div class="pt-5 mt-5 border-t border-[#8C7756]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -902,14 +933,14 @@
 
 
     <!-- 02 / Services: What We Offer For You (Full-Width Grand Architectural Layout) -->
-  <section id="services" class="w-full py-24 md:py-32 bg-[#FBF9F5] text-slate-900 relative overflow-hidden border-b border-stone-200/60">
+  <section id="services" class="w-full py-20 md:py-28 bg-[#FBF9F5] text-slate-900 relative overflow-hidden border-b border-stone-200/60">
     
     <!-- Giant Background Outlined Watermark "SERVICES" -->
     <div class="text-stroke-watermark absolute top-6 left-0 right-0 text-center uppercase tracking-widest z-0 select-none pointer-events-none opacity-[0.05] text-slate-900">
       Services
     </div>
 
-    <div class="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
       
       <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
         <div class="inline-flex items-center gap-2 text-[11px] font-heading font-bold tracking-[0.2em] text-[#8C7756] uppercase mb-3 px-4 py-1.5 rounded-full bg-[#8C7756]/10 border border-[#8C7756]/20">
@@ -917,7 +948,7 @@
           <span>WHAT WE CRAFT</span>
         </div>
         <h2 class="typo-h2 text-slate-900 mt-2">
-          What We Craft <span class="italic font-normal">For You</span>
+          What We Craft <span class="font-medium text-[#8C7756]">For You</span>
         </h2>
         <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-xl mx-auto font-normal">
           Precision modular kitchens and bespoke wardrobes engineered in 100% IS:710 Marine Ply with authentic German hardware.
@@ -930,7 +961,7 @@
         <!-- Card 1: L-Shape & Island Kitchens -->
         <div onclick="openCategoryPage('l-shape-kitchen')" class="reveal-on-scroll group relative rounded-[28px] overflow-hidden bg-white border border-stone-200/80 hover:border-[#8C7756] shadow-lg hover:shadow-2xl cursor-pointer hover:-translate-y-2 transition-all duration-500">
           <div class="h-[440px] sm:h-[480px] overflow-hidden relative">
-            <img src="assets/aaica/aaica-modular-kitchen-island-01.jpg" loading="lazy" decoding="async" 
+            <img src="assets/aaica/aaica-modular-kitchen-island-01.jpg" decoding="async" 
                  alt="L-Shape & Island Kitchens" 
                  class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent"></div>
@@ -954,7 +985,7 @@
         <!-- Card 2: Parallel Galley Kitchens -->
         <div onclick="openCategoryPage('parallel-kitchen')" class="reveal-on-scroll delay-100 group relative rounded-[28px] overflow-hidden bg-white border border-stone-200/80 hover:border-[#8C7756] shadow-lg hover:shadow-2xl cursor-pointer hover:-translate-y-2 transition-all duration-500">
           <div class="h-[440px] sm:h-[480px] overflow-hidden relative">
-            <img src="assets/aaica/aaica-modular-kitchen-parallel-01.jpg" loading="lazy" decoding="async" 
+            <img src="assets/aaica/aaica-modular-kitchen-parallel-01.jpg" decoding="async" 
                  alt="Parallel Galley Kitchens" 
                  class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent"></div>
@@ -978,7 +1009,7 @@
         <!-- Card 3: Italian PU & Fluted Glass Kitchens -->
         <div onclick="openCategoryPage('modular-kitchen')" class="reveal-on-scroll delay-200 group relative rounded-[28px] overflow-hidden bg-white border border-stone-200/80 hover:border-[#8C7756] shadow-lg hover:shadow-2xl cursor-pointer hover:-translate-y-2 transition-all duration-500">
           <div class="h-[440px] sm:h-[480px] overflow-hidden relative">
-            <img src="assets/aaica/aaica-modular-kitchen-ushape-02.jpg" loading="lazy" decoding="async" 
+            <img src="assets/aaica/aaica-modular-kitchen-ushape-02.jpg" decoding="async" 
                  alt="Italian PU & Fluted Glass Kitchens" 
                  class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent"></div>
@@ -1002,7 +1033,7 @@
         <!-- Card 4: Bespoke Walk-In & Sliding Wardrobes -->
         <div onclick="openCategoryPage('modular-wardrobe')" class="reveal-on-scroll delay-300 group relative rounded-[28px] overflow-hidden bg-white border border-stone-200/80 hover:border-[#8C7756] shadow-lg hover:shadow-2xl cursor-pointer hover:-translate-y-2 transition-all duration-500">
           <div class="h-[440px] sm:h-[480px] overflow-hidden relative">
-            <img src="assets/aaica/aaica-wardrobe-walkin-01.jpg" loading="lazy" decoding="async" 
+            <img src="assets/aaica/aaica-wardrobe-walkin-01.jpg" decoding="async" 
                  alt="Bespoke Walk-in & Sliding Wardrobes" 
                  class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent"></div>
@@ -1027,7 +1058,7 @@
 
       <!-- Bottom Contact Pill -->
       <div class="text-center mt-14 reveal-on-scroll delay-300">
-        <button onclick="openInquiryModal()" class="btn-shimmer inline-flex items-center gap-3 px-8 py-4 rounded-full border border-stone-300 hover:border-slate-900 text-slate-800 hover:text-white hover:bg-slate-900 text-xs font-heading font-bold uppercase tracking-wider transition-all bg-white shadow-md hover:shadow-xl hover:-translate-y-0.5 group">
+        <button onclick="openInquiryModal()" class="btn-shimmer inline-flex items-center gap-3 px-8 py-4 rounded-full border border-stone-300 hover:border-slate-900 text-slate-800 hover:text-white hover:bg-slate-900 text-sm font-sans font-semibold min-h-[48px] transition-all bg-white shadow-sm hover:shadow-md group">
           <span>Looking for a bespoke modular kitchen tailored to your floor plan? Book Free Atelier Survey</span>
           <span class="text-[#8C7756] group-hover:text-white transition-colors">&rarr;</span>
         </button>
@@ -1038,7 +1069,7 @@
 
 
   <!-- 03 / Why Choose Us with Circular Centerpiece & Outline Marquee (AtoZ Frame 03) -->
-  <section id="why-us" class="py-24 md:py-32 bg-[#F8FAFC] border-b border-slate-200 overflow-hidden">
+  <section id="why-us" class="py-20 md:py-28 bg-[#F8FAFC] border-b border-slate-200 overflow-hidden">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Header with Right Book Consult Button (AtoZ Frame 03) -->
@@ -1049,7 +1080,7 @@
             <span>SINCE 2012</span>
           </div>
           <h2 class="typo-h2 text-slate-900 mt-2">
-            Why <span class="italic font-normal">Choose Us</span>
+            Why <span class="font-medium text-[#8C7756]">Choose Us</span>
           </h2>
         </div>
         
@@ -1057,7 +1088,7 @@
           <p class="text-xs sm:text-sm text-slate-600 font-sans max-w-md hidden lg:block">
             At AAICA, we are more than just a kitchen firm — we are your direct manufacturing partner creating timeless, ergonomic spaces.
           </p>
-          <button onclick="openInquiryModal()" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full text-xs font-heading font-bold uppercase tracking-wider shadow-lg transition transform hover:scale-105">
+          <button onclick="openInquiryModal()" class="inline-flex items-center gap-2 px-7 py-3.5 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full text-sm font-sans font-semibold min-h-[46px] transition shadow-md hover:shadow-lg">
             <span>Book Consult</span>
             <span class="text-sm">↗</span>
           </button>
@@ -1076,7 +1107,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">14+ Years Experience</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 Countless residential kitchens &amp; architectural joinery projects delivered across Delhi NCR since 2012.
               </p>
             </div>
@@ -1088,7 +1119,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">Latest CNC Technologies</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 We bring your vision to life using cutting-edge 3D CAD blueprints, automated panel sizing, and PUR edge-banding.
               </p>
             </div>
@@ -1100,7 +1131,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">100% IS:710 Marine Ply</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 From raw calibrated marine core to authentic European motion hardware, zero cheap particle board or local duplicates.
               </p>
             </div>
@@ -1127,7 +1158,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">Transparent Pricing</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 No hidden costs — just clear, factory-direct competitive pricing that saves you 30–40% vs mall showroom studios.
               </p>
             </div>
@@ -1139,7 +1170,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">Professional Factory Team</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 Our in-house team of skilled joiners ensures 48-hour dust-free installation with direct founder quality checks.
               </p>
             </div>
@@ -1151,7 +1182,7 @@
             </div>
             <div>
               <h3 class="text-base font-heading font-bold text-slate-900">10-Year Replacement Warranty</h3>
-              <p class="text-xs text-slate-600 font-sans mt-1 leading-relaxed">
+              <p class="text-sm text-slate-600 font-sans mt-1.5 leading-relaxed">
                 Unconditional replacement warranty against borer, termite, or water delamination on all marine ply carcasses.
               </p>
             </div>
@@ -1176,7 +1207,7 @@
           </p>
         </div>
         <div class="flex items-center gap-3 flex-shrink-0">
-          <a href="https://wa.me/919910270754?text=Hi%20Arjun%20Ji,%20I%20want%20to%20visit%20AAICA%20Jagat%20Puri%20factory." target="_blank" class="px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md transition transform hover:scale-105">
+          <a href="https://wa.me/919910270754?text=Hi%20Arjun%20Ji,%20I%20want%20to%20visit%20AAICA%20Jagat%20Puri%20factory." target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md transition transform hover:scale-105">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.842-.981z"/></svg>
             <span>Schedule Workshop Visit</span>
           </a>
@@ -1514,7 +1545,7 @@
 
   <!-- 05 / Factory Advantage: AAICA Direct Factory vs Retail Showrooms (Clean, Bright, Grand Architectural Design) -->
     <!-- 05 / Material Integrity & Craftsmanship: Direct Factory Atelier vs Conventional Showrooms -->
-  <section id="comparison" class="py-28 md:py-36 bg-[#F8FAFC] border-b border-slate-200">
+  <section id="comparison" class="py-20 md:py-28 bg-[#F8FAFC] border-b border-slate-200">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Section Header with Editorial Serif Typography -->
@@ -1525,14 +1556,14 @@
             <span>05 / MATERIAL INTEGRITY &bull; HONEST JOINERY</span>
           </div>
           <h2 class="typo-h2 text-slate-900 mt-2">
-            Built for Generations, <span class="italic font-normal">Not Showrooms</span>
+            Built for Generations, <span class="font-medium text-[#8C7756]">Not Showrooms</span>
           </h2>
           <p class="text-sm sm:text-base text-slate-500 font-sans mt-3 max-w-xl">
             Why discerning Delhi NCR homeowners commission modular kitchens directly from our Jagat Puri workshop.
           </p>
         </div>
         <div class="hidden lg:block text-right">
-          <span class="text-xs font-sans uppercase tracking-widest text-slate-400">Specification Dossier</span>
+          <span class="text-xs font-sans uppercase tracking-widest text-slate-600">Specification Dossier</span>
           <div class="text-xs font-sans font-medium text-slate-600 mt-1">Direct Factory Atelier &bull; Jagat Puri Main Road</div>
         </div>
       </div>
@@ -1550,7 +1581,7 @@
                 <span class="w-2.5 h-2.5 rounded-full bg-[#8C7756] animate-pulse"></span>
                 <span class="text-xs font-heading font-semibold uppercase tracking-widest text-[#8C7756]">Direct Master Joiners Atelier</span>
               </div>
-              <span class="text-xs font-sans text-slate-400 font-bold">Est. 2012 &bull; East Delhi</span>
+              <span class="text-xs font-sans text-slate-600 font-bold">Est. 2012 &bull; East Delhi</span>
             </div>
 
             <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 leading-tight">
@@ -1632,7 +1663,7 @@
         <div class="lg:col-span-5 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col justify-between">
           <div>
             <div class="pb-6 mb-8 border-b border-slate-200">
-              <span class="text-xs font-sans font-bold uppercase tracking-widest text-slate-400">Retail &amp; Portal Reality</span>
+              <span class="text-xs font-sans font-bold uppercase tracking-widest text-slate-600">Retail &amp; Portal Reality</span>
               <h3 class="text-xl font-heading text-slate-900 mt-1">Conventional Showrooms &amp; Online Portals</h3>
               <p class="text-xs text-slate-500 font-sans mt-1">What typically happens behind expensive mall facades.</p>
             </div>
@@ -1693,7 +1724,7 @@
         <span>BESPOKE KITCHEN CONSULTATION</span>
       </div>
       <h2 class="typo-h2 text-white">
-        Your dream kitchen is just a <span class="italic">consultation away</span>
+        Your dream kitchen is just a <span class="font-medium text-amber-300">consultation away</span>
       </h2>
       <p class="text-sm sm:text-base font-sans text-slate-200 max-w-xl mx-auto mt-4 leading-relaxed font-normal">
         Schedule a complimentary 3D CAD design blueprint, on-site laser measurement, and transparent factory-direct quotation with Arjun Ji at our Jagat Puri atelier.
@@ -1703,7 +1734,7 @@
           Get Started &rarr;
         </button>
         <a href="https://wa.me/919910270754?text=Hi%20Arjun%20Ji%2C%20I%20would%20like%20to%20book%20a%20free%203D%20CAD%20kitchen%20consultation." 
-           target="_blank" 
+           target="_blank" rel="noopener noreferrer" 
            class="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-sans font-bold uppercase tracking-widest transition-all backdrop-blur-md border border-white/20 flex items-center gap-2">
           <span>Chat On WhatsApp</span>
           <span>&rarr;</span>
@@ -1713,7 +1744,7 @@
   </section>
 
   <!-- 06 / Minimal Architectural Kitchen Cost Estimator (Bright, Clean, Grand Architectural Design - NO BLACK BOX) -->
-  <section id="calculator" class="py-24 md:py-32 bg-[#FAF8F5] border-b border-stone-200/70 relative">
+  <section id="calculator" class="py-20 md:py-28 bg-[#FAF8F5] border-b border-stone-200/70 relative">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Section Header -->
@@ -1724,7 +1755,7 @@
             <span>06 / INSTANT FACTORY COST ESTIMATOR</span>
           </div>
           <h2 class="typo-h2 text-slate-900 mt-2">
-            Plan Your Kitchen with <span class="italic font-normal">Honest Pricing</span>
+            Plan Your Kitchen with <span class="font-medium text-[#8C7756]">Honest Pricing</span>
           </h2>
           <p class="text-slate-600 text-sm sm:text-base font-sans mt-3 max-w-2xl leading-relaxed font-normal">
             Transparent manufacturing pricing with zero showroom markups. Choose your layout, finish, and scope to view honest factory manufacturing estimates including 18mm IS:710 Marine Ply and authentic European soft-close hardware.
@@ -1946,13 +1977,13 @@
                 DIRECT FACTORY MANUFACTURING ESTIMATE
               </div>
               <div class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 tracking-tight flex items-baseline gap-1">
-                <span class="text-slate-400 text-2xl font-normal">₹</span>
+                <span class="text-slate-500 text-2xl font-medium">₹</span>
                 <span id="calc-price-range" class="text-slate-900 font-bold">2,31,000 – 2,75,000</span>
               </div>
               
               <div class="mt-3.5 p-3.5 bg-stone-50 rounded-xl border border-stone-200/70 flex items-center justify-between text-xs font-sans">
                 <span class="text-slate-500">Mall Showroom Retail Price:</span>
-                <span id="calc-retail-price" class="line-through text-slate-400 font-bold">₹3,70,000 – ₹4,40,000</span>
+                <span id="calc-retail-price" class="line-through text-slate-600 font-bold">₹3,70,000 – ₹4,40,000</span>
               </div>
               
               <div class="mt-2.5 text-xs font-heading font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/60 rounded-xl p-2.5 text-center flex items-center justify-center gap-1.5">
@@ -1986,12 +2017,12 @@
             <div class="pt-4 border-t border-stone-200/60 flex flex-col gap-3">
               <a id="calc-whatsapp-btn" 
                  href="https://wa.me/919910270754?text=Hi%20Arjun%20Ji%2C%20I%20configured%20an%20L-Shaped%20Kitchen%20in%20High-Gloss%20Acrylic%20on%20your%20website.%20Factory%20Estimate%3A%20%E2%82%B92%2C31%2C000%20%E2%80%93%20%E2%82%B92%2C75%2C000.%20Please%20share%20the%20detailed%203D%20CAD%20blueprint." 
-                 target="_blank"
-                 class="w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-heading font-bold text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                 target="_blank" rel="noopener noreferrer"
+                 class="w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-sans font-semibold text-sm min-h-[46px] inline-flex items-center justify-center transition shadow-sm hover:shadow-md hover:shadow-lg flex items-center justify-center gap-2">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                 <span>Send Estimate to Arjun Ji on WhatsApp</span>
               </a>
-              <button type="button" onclick="openInquiryModal()" class="w-full py-3 bg-stone-100 hover:bg-stone-200 text-slate-800 rounded-full font-heading font-bold text-xs uppercase tracking-wider transition border border-stone-200">
+              <button type="button" onclick="openInquiryModal()" class="w-full py-3 bg-stone-100 hover:bg-stone-200 text-slate-800 rounded-full font-sans font-semibold text-sm min-h-[46px] transition border border-stone-200">
                 Book Free 3D CAD Blueprint &amp; Factory Visit &rarr;
               </button>
             </div>
@@ -2005,7 +2036,7 @@
   </section>
 
   <!-- 07 / How It Works: 4-Step Process Journey -->
-  <section id="process" class="py-24 md:py-32 bg-white border-b border-stone-200/70">
+  <section id="process" class="py-20 md:py-28 bg-white border-b border-stone-200/70">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <!-- Section Header -->
@@ -2022,7 +2053,7 @@
           <span>STRESS-FREE EXECUTION</span>
         </div>
         <h2 class="typo-h2 text-slate-900 mt-2">
-          How It <span class="italic font-normal">Works</span>
+          How It <span class="font-medium text-[#8C7756]">Works</span>
         </h2>
         <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3">
           From your first site survey to move-in day — a completely transparent, German CNC-guided architectural experience.
@@ -2035,11 +2066,11 @@
         <!-- Step 1 -->
         <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
           <div>
-            <span class="text-4xl font-heading italic text-[#8C7756]">01</span>
+            <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">01</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
               Book a Free Atelier / Site Visit
             </h3>
-            <p class="text-xs text-slate-600 mt-2 font-sans leading-relaxed">
+            <p class="text-sm text-slate-600 mt-2.5 font-sans leading-relaxed">
               Share your room dimensions or request our team for a laser survey across Delhi NCR. Completely free with zero obligation.
             </p>
           </div>
@@ -2051,11 +2082,11 @@
         <!-- Step 2 -->
         <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
           <div>
-            <span class="text-4xl font-heading italic text-[#8C7756]">02</span>
+            <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">02</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
               3D CAD Design &amp; Materials
             </h3>
-            <p class="text-xs text-slate-600 mt-2 font-sans leading-relaxed">
+            <p class="text-sm text-slate-600 mt-2.5 font-sans leading-relaxed">
               Get bespoke 3D visualisations. Visit our Jagat Puri showroom to touch and choose physical acrylic, PU, glass, and quartz finishes.
             </p>
           </div>
@@ -2067,11 +2098,11 @@
         <!-- Step 3 -->
         <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
           <div>
-            <span class="text-4xl font-heading italic text-[#8C7756]">03</span>
+            <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">03</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
               Precision CNC Fabrication
             </h3>
-            <p class="text-xs text-slate-600 mt-2 font-sans leading-relaxed">
+            <p class="text-sm text-slate-600 mt-2.5 font-sans leading-relaxed">
               Computerized automated sizing, edge-banding, and hinge pre-drilling directly inside our East Delhi factory. No manual carpentry errors.
             </p>
           </div>
@@ -2083,11 +2114,11 @@
         <!-- Step 4 -->
         <div class="p-8 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 flex flex-col justify-between hover:border-[#8C7756]/50 hover:shadow-lg transition">
           <div>
-            <span class="text-4xl font-heading italic text-[#8C7756]">04</span>
+            <span class="text-3xl sm:text-4xl font-heading font-bold text-[#8C7756] tabular-nums">04</span>
             <h3 class="text-lg font-heading font-semibold text-slate-900 mt-4">
               48-Hour Dust-Free Fitout
             </h3>
-            <p class="text-xs text-slate-600 mt-2 font-sans leading-relaxed">
+            <p class="text-sm text-slate-600 mt-2.5 font-sans leading-relaxed">
               Factory-finished modular carcasses arrive pre-cut. Complete installation takes just 48 hours without sawdust or mess at your home.
             </p>
           </div>
@@ -2101,14 +2132,14 @@
       <!-- Warm Architectural Handover Guarantee Banner -->
       <div class="mt-12 bg-[#FBF9F5] border border-[#8C7756]/30 rounded-3xl p-8 sm:p-10 text-slate-900 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
         <div>
-          <p class="font-heading italic text-xl sm:text-2xl text-slate-900">
+          <p class="font-heading font-semibold text-xl sm:text-2xl text-slate-900">
             &ldquo;Designed to perfection. Delivered on time.&rdquo;
           </p>
           <p class="text-slate-600 text-xs sm:text-sm font-sans mt-1.5">
             Backed by a 45-day guaranteed handover commitment and an unconditional 10-year direct replacement warranty.
           </p>
         </div>
-        <button onclick="openInquiryModal()" class="px-8 py-4 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-heading font-bold text-xs uppercase tracking-wider transition whitespace-nowrap shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <button onclick="openInquiryModal()" class="px-8 py-4 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-sans font-semibold text-sm min-h-[46px] inline-flex items-center justify-center transition whitespace-nowrap shadow-md hover:shadow-lg">
           Book Your Free Visit &rarr;
         </button>
       </div>
@@ -2118,7 +2149,7 @@
 
 
   <!-- 08 / Client Feedback: MOVING TESTIMONIALS SLIDER with 4.9 Rating Score (AtoZ Frame 08 & 10) -->
-  <section id="reviews" class="py-24 md:py-32 bg-white border-b border-slate-200 relative overflow-hidden">
+  <section id="reviews" class="py-20 md:py-28 bg-white border-b border-slate-200 relative overflow-hidden">
     
     <!-- Giant Quote Watermark on Left (AtoZ Frame 08) -->
     <div class="absolute -top-10 -left-6 text-[220px] font-heading font-bold text-slate-100/80 leading-none select-none pointer-events-none z-0">
@@ -2135,9 +2166,9 @@
             <span>CLIENT FEEDBACK</span>
           </div>
           <h2 class="typo-h2 text-slate-900 mt-2">
-            Hear From <span class="italic font-normal">Our Clients</span>
+            Hear From <span class="font-medium text-[#8C7756]">Our Clients</span>
           </h2>
-          <p class="text-slate-500 text-xs sm:text-sm font-sans mt-1">
+          <p class="text-slate-600 text-sm font-sans mt-1">
             Real Delhi NCR homeowners on our factory finish, on-time handover, and genuine 18mm marine ply.
           </p>
         </div>
@@ -2160,7 +2191,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Doorstep service for modular kitchen. They were very helpful in every aspect. Mr. Harsh & Ameer helped us to make a great modular kitchen at a very reasonable price. Highly recommend AAICA to everyone looking for honest factory work."
               </p>
             </div>
@@ -2182,7 +2213,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Got complete makeover done: Kitchen, Wardrobes and LCD Panel. Everything was executed with high-grade IS:710 Marine Ply and smooth European hardware. Punctual, transparent, and direct factory pricing saved us a lot."
               </p>
             </div>
@@ -2204,7 +2235,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Very professional team. Got my TV panel done under Mr. Harsh's supervision. Finishing is top notch and done within committed time. Zero mess at home during mounting."
               </p>
             </div>
@@ -2214,7 +2245,7 @@
                 <p class="text-[11px] text-slate-500 font-sans">Delhi NCR • Designer TV Panel</p>
               </div>
               <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&h=200&q=80" 
-                   alt="Himanshu Verma" 
+                   alt="Saurav Shukla" 
                    class="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm">
             </div>
           </div>
@@ -2226,7 +2257,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Great experience with AAICA Modular Kitchen. Mr. Harsh took care of the complete redesign and delivery. The quality of materials and soft-close hardware is truly outstanding."
               </p>
             </div>
@@ -2248,7 +2279,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Got my kitchen done from AAICA. Fully satisfied with the work. Any small queries during fitout were resolved immediately by Mr. Harsh. Highly polite and skilled technicians."
               </p>
             </div>
@@ -2270,7 +2301,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Modular kitchen executed smoothly under guidance of Mr. Rahul Sony. Quality of shutters, edge-banding, and fittings is superb. Honest workshop dealings from day one."
               </p>
             </div>
@@ -2292,7 +2323,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Doorstep service for modular kitchen. They were very helpful in every aspect. Mr. Harsh & Ameer helped us to make a great modular kitchen at a very reasonable price. Highly recommend AAICA to everyone looking for honest factory work."
               </p>
             </div>
@@ -2313,7 +2344,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Got complete makeover done: Kitchen, Wardrobes and LCD Panel. Everything was executed with high-grade IS:710 Marine Ply and smooth European hardware. Punctual, transparent, and direct factory pricing saved us a lot."
               </p>
             </div>
@@ -2334,7 +2365,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Very professional team. Got my TV panel done under Mr. Harsh's supervision. Finishing is top notch and done within committed time. Zero mess at home during mounting."
               </p>
             </div>
@@ -2344,7 +2375,7 @@
                 <p class="text-[11px] text-slate-500 font-sans">Delhi NCR • Designer TV Panel</p>
               </div>
               <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&h=200&q=80" 
-                   alt="Himanshu Verma" 
+                   alt="Saurav Shukla" 
                    class="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm">
             </div>
           </div>
@@ -2355,7 +2386,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Great experience with AAICA Modular Kitchen. Mr. Harsh took care of the complete redesign and delivery. The quality of materials and soft-close hardware is truly outstanding."
               </p>
             </div>
@@ -2376,7 +2407,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Got my kitchen done from AAICA. Fully satisfied with the work. Any small queries during fitout were resolved immediately by Mr. Harsh. Highly polite and skilled technicians."
               </p>
             </div>
@@ -2397,7 +2428,7 @@
                 <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
                 <span class="text-[10px] font-heading font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">Verified Handover</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+              <p class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">
                 "Modular kitchen executed smoothly under guidance of Mr. Rahul Sony. Quality of shutters, edge-banding, and fittings is superb. Honest workshop dealings from day one."
               </p>
             </div>
@@ -2453,9 +2484,9 @@
         <span>AUTHENTIC HARDWARE &amp; MATERIALS</span>
       </div>
       <h2 class="typo-h2 text-slate-900 mt-2">
-        Our <span class="italic font-normal text-[#8C7756]">Brands</span>
+        Our <span class="font-medium text-[#8C7756]">Brands</span>
       </h2>
-      <p class="text-xs sm:text-sm text-slate-500 font-sans mt-2 max-w-xl mx-auto">
+      <p class="text-sm text-slate-600 font-sans mt-2 max-w-xl mx-auto">
         Certified global hardware and calibrated marine ply alliances engineered into every AAICA modular kitchen.
       </p>
     </div>
@@ -2515,7 +2546,7 @@
 
 
   <!-- 09 / Contact & Atelier Visit (AtoZ Style 2-Column) -->
-  <section id="contact" class="py-24 md:py-32 bg-white border-b border-stone-200/70">
+  <section id="contact" class="py-20 md:py-28 bg-white border-b border-stone-200/70">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -2528,7 +2559,7 @@
               <span>SHOWROOM &amp; ATELIER VISIT</span>
             </div>
             <h2 class="typo-h2 text-slate-900 mt-2">
-              Book Your Free <span class="italic font-normal">Design Consultation</span>
+              Book Your Free <span class="font-medium text-[#8C7756]">Design Consultation</span>
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-sans mt-3 max-w-lg">
               Speak directly with our founders Arjun &amp; Ajay Ji — completely free, zero obligation. Visit our Jagat Puri showroom &amp; workshop to inspect raw 18mm IS:710 marine ply and hardware firsthand.
@@ -2582,7 +2613,7 @@
                 <span class="text-xs font-heading font-bold text-slate-900">AAICA Modular Kitchen • Jagat Puri, Delhi-110051</span>
               </div>
               <a href="https://www.google.com/maps/search/?api=1&query=AAICA+Modular+Kitchen+F-165+Jagat+Puri+Near+F+Block+Bus+Stand+Delhi+110051" 
-                 target="_blank" 
+                 target="_blank" rel="noopener noreferrer" 
                  rel="noopener noreferrer"
                  class="text-[11px] font-heading font-bold text-[#8C7756] hover:text-slate-900 uppercase tracking-wider flex items-center gap-1 transition">
                 <span>Open Directions on Google Maps</span>
@@ -2605,7 +2636,7 @@
         <div class="lg:col-span-6 bg-[#FAF8F5] border border-stone-200/90 rounded-3xl p-8 sm:p-10 shadow-lg">
           <div class="mb-6">
             <h3 class="text-2xl font-heading text-slate-900">
-              Get Free 3D Design &amp; <span class="italic">Factory Quote</span>
+              Get Free 3D Design &amp; <span class="font-medium text-[#8C7756]">Factory Quote</span>
             </h3>
             <p class="text-xs text-slate-600 font-sans mt-1">
               Direct factory price quote with itemized BOQ in 15 minutes.
@@ -2616,12 +2647,12 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Full Name *</label>
+                <label for="sec-name" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Your Full Name *</label>
                 <input type="text" id="sec-name" required placeholder="e.g. Sameer Kapoor" 
                        class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/20 text-slate-900 text-sm transition outline-none bg-white">
               </div>
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">WhatsApp / Phone *</label>
+                <label for="sec-phone" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">WhatsApp / Phone *</label>
                 <input type="tel" id="sec-phone" required placeholder="+91 98XXX XXXXX" 
                        class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/20 text-slate-900 text-sm transition outline-none bg-white">
               </div>
@@ -2629,12 +2660,12 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">Location / Colony *</label>
+                <label for="sec-loc" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Location / Colony *</label>
                 <input type="text" id="sec-loc" required placeholder="e.g. Preet Vihar, Noida Sector 50" 
                        class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/20 text-slate-900 text-sm transition outline-none bg-white">
               </div>
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">Kitchen Layout</label>
+                <label for="sec-layout" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Kitchen Layout</label>
                 <select id="sec-layout" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] text-slate-900 text-sm transition outline-none bg-white">
                   <option value="L-Shaped Kitchen">L-Shaped Kitchen</option>
                   <option value="Parallel Galley Kitchen">Parallel Galley Kitchen</option>
@@ -2648,7 +2679,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">Project Stage</label>
+                <label for="sec-stage" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Project Stage</label>
                 <select id="sec-stage" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] text-slate-900 text-sm transition outline-none bg-white">
                   <option value="Planning / Exploring Ideas">Planning / Exploring Ideas</option>
                   <option value="Civil Work Underway">Civil Work Underway</option>
@@ -2656,7 +2687,7 @@
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">How Did You Find Us?</label>
+                <label for="sec-source" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">How Did You Find Us?</label>
                 <select id="sec-source" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] text-slate-900 text-sm transition outline-none bg-white">
                   <option value="Instagram / Meta Ads">Instagram / Facebook (Meta Ads)</option>
                   <option value="Google Search / Google Maps">Google Search / Google Maps</option>
@@ -2668,13 +2699,13 @@
             </div>
 
             <div>
-              <label class="block text-xs font-heading font-bold uppercase tracking-wider text-slate-700 mb-1.5">Requirements / Notes</label>
+              <label for="sec-notes" class="block text-xs font-sans font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Requirements / Notes</label>
               <textarea id="sec-notes" rows="3" placeholder="Approx room size, preferred finishes (Acrylic/PU), civil work status..." 
                         class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:border-[#8C7756] text-slate-900 text-sm transition outline-none bg-white"></textarea>
             </div>
 
             <button type="submit" 
-                    class="w-full py-4 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-heading font-bold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-2">
+                    class="w-full py-4 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-sans font-semibold text-[15px] min-h-[48px] shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2">
               <span>Book Free Consultation &amp; 3D Plan</span>
               <span class="text-base">&rarr;</span>
             </button>
@@ -2704,7 +2735,7 @@
 
   <!-- 10 / Frequently Asked Questions (Accordion) -->
     <!-- 10 / FAQ (Minimalist Architectural Accordion - Livspace Reference) -->
-  <section id="faq" class="py-28 md:py-36 bg-white border-b border-slate-200">
+  <section id="faq" class="py-20 md:py-28 bg-white border-b border-slate-200">
     <div class="max-w-[1000px] mx-auto px-4 sm:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
@@ -2713,7 +2744,7 @@
           <span>FREQUENTLY ASKED QUESTIONS</span>
         </div>
         <h2 class="typo-h2 text-slate-900 mt-2">
-          Everything You Need <span class="italic font-normal">To Know</span>
+          Everything You Need <span class="font-medium text-[#8C7756]">To Know</span>
         </h2>
         <p class="text-slate-500 text-sm font-sans mt-3">
           Direct clarity on materials, factory fabrication, hardware warranties, and timelines.
@@ -2724,70 +2755,70 @@
         
         <div class="accordion-item border-b border-slate-200 py-6 transition">
           <button class="w-full flex items-center justify-between text-left group">
-            <span class="text-base sm:text-lg font-heading text-slate-900 group-hover:text-[#8C7756] transition pr-6">
+            <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               1. Why choose 100% IS:710 Marine Ply over commercial MDF or particle board?
             </span>
             <span class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 group-hover:border-slate-400 group-hover:text-slate-900 flex-shrink-0 transition text-lg font-normal">
               +
             </span>
           </button>
-          <div class="accordion-content hidden pt-4 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <div class="accordion-content hidden pt-4 text-sm text-slate-600 font-sans leading-relaxed">
             Indian kitchens undergo heavy steam, turmeric, water exposure, and spice grinding. Commercial MDF and particle board absorb ambient humidity and swell within 2–3 years, degrading screw holding. AAICA uses exclusively calibrated 18mm IS:710 Marine Grade BWP ply with boiling waterproof bonding and an unconditional 10-year replacement warranty against water delamination, termite, or borer attack.
           </div>
         </div>
 
         <div class="accordion-item border-b border-slate-200 py-6 transition">
           <button class="w-full flex items-center justify-between text-left group">
-            <span class="text-base sm:text-lg font-heading text-slate-900 group-hover:text-[#8C7756] transition pr-6">
+            <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               2. Can I visit your Jagat Puri factory to inspect materials before cutting?
             </span>
             <span class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 group-hover:border-slate-400 group-hover:text-slate-900 flex-shrink-0 transition text-lg font-normal">
               +
             </span>
           </button>
-          <div class="accordion-content hidden pt-4 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <div class="accordion-content hidden pt-4 text-sm text-slate-600 font-sans leading-relaxed">
             Yes, absolutely. Unlike mall studios that outsource to third-party contract units, AAICA operates our own direct joinery atelier at F-165 Jagat Puri, Near F Block Bus Stand, Delhi-110051. Homeowners are actively encouraged to visit, inspect their raw marine ply sheets, verify German PUR edge-banding, and check certified Blum/Häfele hardware before panel sizing commences.
           </div>
         </div>
 
         <div class="accordion-item border-b border-slate-200 py-6 transition">
           <button class="w-full flex items-center justify-between text-left group">
-            <span class="text-base sm:text-lg font-heading text-slate-900 group-hover:text-[#8C7756] transition pr-6">
+            <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               3. How much does an AAICA modular kitchen cost compared to retail showrooms?
             </span>
             <span class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 group-hover:border-slate-400 group-hover:text-slate-900 flex-shrink-0 transition text-lg font-normal">
               +
             </span>
           </button>
-          <div class="accordion-content hidden pt-4 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <div class="accordion-content hidden pt-4 text-sm text-slate-600 font-sans leading-relaxed">
             By purchasing directly from our manufacturing atelier, homeowners save 30% to 40% on identical specifications. A standard 22 Rft kitchen in 18mm IS:710 Marine Ply with Senosan acrylic and Blum hardware costs between ₹2.3L to ₹2.75L at AAICA, whereas retail mall studios quote ₹3.7L to ₹4.4L for comparable grades due to 35%+ showroom markups and sales commissions.
           </div>
         </div>
 
         <div class="accordion-item border-b border-slate-200 py-6 transition">
           <button class="w-full flex items-center justify-between text-left group">
-            <span class="text-base sm:text-lg font-heading text-slate-900 group-hover:text-[#8C7756] transition pr-6">
+            <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               4. What warranty is provided on German Blum and Häfele motion hardware?
             </span>
             <span class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 group-hover:border-slate-400 group-hover:text-slate-900 flex-shrink-0 transition text-lg font-normal">
               +
             </span>
           </button>
-          <div class="accordion-content hidden pt-4 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <div class="accordion-content hidden pt-4 text-sm text-slate-600 font-sans leading-relaxed">
             We use 100% authentic Austrian Blum Tandembox/Legrabox drawers and German Häfele soft-close hinges backed by the manufacturer's lifetime replacement warranty (certified for 200,000 opening cycles). Every fitting carries official serial authentication.
           </div>
         </div>
 
         <div class="accordion-item border-b border-slate-200 py-6 transition">
           <button class="w-full flex items-center justify-between text-left group">
-            <span class="text-base sm:text-lg font-heading text-slate-900 group-hover:text-[#8C7756] transition pr-6">
+            <span class="text-base sm:text-lg font-heading font-semibold text-slate-900 group-hover:text-[#8C7756] transition pr-6">
               5. How long does the complete manufacturing and on-site fitout take?
             </span>
             <span class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 group-hover:border-slate-400 group-hover:text-slate-900 flex-shrink-0 transition text-lg font-normal">
               +
             </span>
           </button>
-          <div class="accordion-content hidden pt-4 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <div class="accordion-content hidden pt-4 text-sm text-slate-600 font-sans leading-relaxed">
             From finalized 3D CAD blueprints, precision CNC fabrication at our Jagat Puri atelier takes approximately 25 to 30 days. On-site installation is completed in 48 hours using pre-drilled dowel-and-minifix joinery with zero cutting dust inside your home.
           </div>
         </div>
@@ -2818,23 +2849,23 @@
             <span>SHOWROOM ADDRESS &amp; FACTORY ATELIER</span>
           </div>
           <h3 class="text-2xl sm:text-3xl font-heading text-slate-900 leading-tight">
-            AAICA Modular Kitchen <span class="italic font-normal text-[#8C7756]">(Bath &lsquo;N Kitchen)</span>
+            AAICA Modular Kitchen <span class="font-medium text-[#8C7756]">(Bath &lsquo;N Kitchen)</span>
           </h3>
-          <p class="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+          <p class="text-sm text-slate-600 font-sans leading-relaxed">
             <strong class="text-slate-900">F-165, Main Road Jagat Puri, Near F-Block Bus Stand, East Delhi &mdash; 110051.</strong><br>
             Visit our East Delhi atelier to touch 18mm IS:710 Marine Ply, test Austrian Blum &amp; German H&auml;fele hardware, and finalize your 3D CAD design.
           </p>
         </div>
         <div class="flex flex-col sm:flex-row items-center gap-3.5 flex-shrink-0 w-full lg:w-auto">
           <a href="https://www.google.com/maps/search/?api=1&query=AAICA+Modular+Kitchen+F-165+Jagat+Puri+Near+F+Block+Bus+Stand+Delhi+110051" 
-             target="_blank" 
-             class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#8C7756] hover:bg-[#736145] text-white text-xs font-heading font-bold uppercase tracking-wider transition shadow-md text-center flex items-center justify-center gap-2">
+             target="_blank" rel="noopener noreferrer" 
+             class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#8C7756] hover:bg-[#736145] text-white text-sm font-sans font-semibold min-h-[46px] transition shadow-sm hover:shadow-md text-center flex items-center justify-center gap-2">
             <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>Locate on Google Maps</span>
           </a>
           <a href="https://wa.me/919899301054?text=Hi%20AAICA%20Team%2C%20I%20would%20like%20to%20visit%20your%20Jagat%20Puri%20showroom." 
-             target="_blank" 
-             class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider transition shadow-md text-center flex items-center justify-center gap-2">
+             target="_blank" rel="noopener noreferrer" 
+             class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-sm font-sans font-semibold min-h-[46px] transition shadow-sm hover:shadow-md text-center flex items-center justify-center gap-2">
             <span>WhatsApp Atelier &rarr;</span>
           </a>
         </div>
@@ -2852,12 +2883,12 @@
                  alt="AAICA Bath N Kitchen" 
                  class="h-10 w-auto object-contain">
           </a>
-          <p class="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed max-w-sm">
+          <p class="text-sm text-slate-600 font-sans leading-relaxed max-w-sm">
             &ldquo;Good quality will save the world in time.&rdquo; AAICA&rsquo;s master joiners craft bespoke modular kitchens, wardrobes, and vanities direct from our East Delhi atelier with 100% IS:710 Marine Ply.
           </p>
           
           <!-- Official Phone, Address, Gmail, Instagram, Timings -->
-          <ul class="space-y-2.5 text-xs text-slate-700 font-sans pt-1">
+          <ul class="space-y-3 text-sm text-slate-700 font-sans pt-2">
             <li class="flex items-start gap-2.5">
               <span class="w-6 h-6 rounded-lg bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -2889,7 +2920,7 @@
               <span class="w-6 h-6 rounded-lg bg-[#8C7756]/15 text-[#8C7756] flex items-center justify-center flex-shrink-0">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </span>
-              <span>Mon &ndash; Sun (9:00 AM &ndash; 8:00 PM) &bull; <a href="https://www.aaica.co.in" target="_blank" class="text-[#8C7756] hover:underline font-medium">www.aaica.co.in</a></span>
+              <span>Mon &ndash; Sun (9:00 AM &ndash; 8:00 PM) &bull; <a href="https://www.aaica.co.in" target="_blank" rel="noopener noreferrer" class="text-[#8C7756] hover:underline font-medium">www.aaica.co.in</a></span>
             </li>
           </ul>
         </div>
@@ -2897,14 +2928,14 @@
         <!-- Col 2: WARDROBE (Official Column - 2 cols) -->
         <div class="lg:col-span-2 space-y-3">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Wardrobe</div>
-          <ul class="space-y-2.5 text-xs text-slate-600 font-sans font-medium">
+          <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=walk-in-wardrobe" onclick="openCategoryPage('walk-in-wardrobe'); return false;" class="hover:text-[#8C7756] transition">Walk-In Wardrobe</a></li>
             <li><a href="#page=sliding-door-wardrobe" onclick="openCategoryPage('sliding-door-wardrobe'); return false;" class="hover:text-[#8C7756] transition">Sliding Door Wardrobe</a></li>
             <li><a href="#page=openable-shutter-wardrobe" onclick="openCategoryPage('openable-shutter-wardrobe'); return false;" class="hover:text-[#8C7756] transition">Openable Shutter Wardrobe</a></li>
           </ul>
           <div class="pt-4">
             <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2 mb-2.5">Quick Jump</div>
-            <ul class="space-y-2 text-xs text-slate-600 font-sans font-medium">
+            <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
               <li><a href="#calculator" onclick="navigateToSection('#calculator')" class="hover:text-[#8C7756] transition">Cost Estimator</a></li>
               <li><a href="#portfolio" onclick="navigateToSection('#portfolio')" class="hover:text-[#8C7756] transition">Delivered Projects</a></li>
               <li><a href="#contact" onclick="navigateToSection('#contact')" class="hover:text-[#8C7756] transition">Showroom Map</a></li>
@@ -2915,7 +2946,7 @@
         <!-- Col 3: KITCHEN TYPE (Official Column - 3 cols) -->
         <div class="lg:col-span-3 space-y-3">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Kitchen Type</div>
-          <ul class="space-y-2.5 text-xs text-slate-600 font-sans font-medium">
+          <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=straight-kitchen" onclick="openCategoryPage('straight-kitchen'); return false;" class="hover:text-[#8C7756] transition">Straight Kitchen</a></li>
             <li><a href="#page=l-shape-kitchen" onclick="openCategoryPage('l-shape-kitchen'); return false;" class="hover:text-[#8C7756] transition">L-Shaped Kitchen</a></li>
             <li><a href="#page=u-shape-kitchen" onclick="openCategoryPage('u-shape-kitchen'); return false;" class="hover:text-[#8C7756] transition">U-Shaped Kitchen</a></li>
@@ -2928,7 +2959,7 @@
         <!-- Col 4: PRODUCTS & Consultation (3 cols) -->
         <div class="lg:col-span-3 space-y-3">
           <div class="text-xs font-heading font-semibold uppercase tracking-[0.2em] text-slate-900 border-b border-stone-300/80 pb-2">Products</div>
-          <ul class="space-y-2.5 text-xs text-slate-600 font-sans font-medium">
+          <ul class="space-y-3 text-sm text-slate-700 font-sans font-medium">
             <li><a href="#page=modular-kitchen" onclick="openCategoryPage('modular-kitchen'); return false;" class="hover:text-[#8C7756] transition">Modular Kitchen</a></li>
             <li><a href="#page=modular-wardrobe" onclick="openCategoryPage('modular-wardrobe'); return false;" class="hover:text-[#8C7756] transition">Modular Wardrobe</a></li>
             <li><a href="#page=bathroom-vanity" onclick="openCategoryPage('bathroom-vanity'); return false;" class="hover:text-[#8C7756] transition">Bathroom Vanity</a></li>
@@ -2936,7 +2967,7 @@
             <li><a href="#page=wall-panelling" onclick="openCategoryPage('wall-panelling'); return false;" class="hover:text-[#8C7756] transition">Wall Panelling</a></li>
           </ul>
           <div class="pt-3">
-            <button onclick="openInquiryModal()" class="w-full py-3 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-heading font-bold text-xs uppercase tracking-wider transition shadow-md">
+            <button onclick="openInquiryModal()" class="w-full py-3 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-sans font-semibold text-sm min-h-[46px] inline-flex items-center justify-center transition shadow-sm hover:shadow-md">
               Book Free 3D Design Session &rarr;
             </button>
           </div>
@@ -2945,7 +2976,7 @@
       </div>
 
       <!-- Bottom Legal, Follow Us Social Icons & Certifications -->
-      <div class="pt-8 pr-0 sm:pr-20 flex flex-col md:flex-row items-center justify-between text-xs text-slate-600 font-sans gap-5">
+      <div class="pt-8 pr-0 sm:pr-20 flex flex-col md:flex-row items-center justify-between text-sm text-slate-600 font-sans gap-5">
         <div>
           &copy; Copyright 2026 <strong class="text-slate-900">AAICA Modular Kitchen</strong> (A Unit of R&amp;R Industries). All Rights Reserved.
         </div>
@@ -2973,7 +3004,7 @@
 
   <!-- Luxury Architectural Split-Image Welcome Enquiry Popup -->
   <div id="inquiry-modal" style="z-index: 9999;" class="fixed inset-0 flex items-center justify-center p-3 sm:p-5 bg-black/65 backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none" aria-modal="true" role="dialog" onclick="if(event.target === this) closeInquiryModal()">
-    <div class="relative w-full max-w-full sm:max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-[#8C7756]/30 transform transition-all duration-300 scale-95 max-h-[92vh] flex flex-col sm:flex-row min-w-0" id="modal-content">
+    <div class="relative w-full max-w-full sm:max-w-3xl bg-white rounded-3xl shadow-2xl overflow-y-auto sm:overflow-hidden border border-[#8C7756]/30 transform transition-all duration-300 scale-95 max-h-[90vh] flex flex-col sm:flex-row min-w-0" id="modal-content">
       
       <!-- Close Button (Top Right Floating) -->
       <button onclick="closeInquiryModal()" class="absolute top-3.5 right-3.5 z-30 w-8 h-8 rounded-full bg-[#FAF8F5] hover:bg-stone-200 text-slate-700 hover:text-slate-900 transition flex items-center justify-center border border-stone-200 shadow-sm" aria-label="Close modal">
@@ -3000,7 +3031,7 @@
           <div>
             <p class="text-[10px] font-sans uppercase tracking-[0.2em] text-amber-300">Jagat Puri Direct Factory</p>
             <h4 class="text-xl font-heading leading-snug mt-1 text-white">
-              Crafted in <span class="italic">100% IS:710 Marine Ply</span>
+              Crafted in <span class="font-medium text-amber-300">100% IS:710 Marine Ply</span>
             </h4>
           </div>
           <div class="space-y-2 pt-2 border-t border-white/20 text-[11px] font-sans text-stone-200">
@@ -3021,7 +3052,7 @@
       </div>
 
       <!-- Mobile Compact Kitchen Strip (Visible only on phones < 640px) -->
-      <div class="sm:hidden relative h-28 w-full flex-shrink-0 overflow-hidden bg-stone-900">
+      <div class="sm:hidden relative h-20 w-full flex-shrink-0 overflow-hidden bg-stone-900">
         <img src="assets/aaica/aaica-modular-kitchen-island-04.jpg" 
              alt="AAICA Modular Kitchen" 
              class="w-full h-full object-cover">
@@ -3033,14 +3064,14 @@
       </div>
 
       <!-- Right Form Panel (Refined Architectural Typography) -->
-      <div class="w-full sm:w-[58%] p-4 sm:p-7 overflow-y-auto overflow-x-hidden bg-white min-w-0">
+      <div class="w-full sm:w-[58%] p-5 sm:p-7 pb-6 sm:overflow-y-auto overflow-x-hidden bg-white min-w-0">
         
         <div class="text-left mb-4 pr-6">
           <div class="inline-flex items-center gap-1.5 text-[10px] font-heading font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full mb-2">
             <span>Free Laser Survey + 3D CAD Design</span>
           </div>
           <h3 class="text-xl sm:text-2xl font-heading text-slate-900 leading-snug tracking-tight">
-            Book Your Free <span class="italic font-normal text-[#8C7756]">Factory Quote</span>
+            Book Your Free <span class="font-medium text-[#8C7756]">Factory Quote</span>
           </h3>
           <p class="text-[11px] sm:text-xs text-slate-500 mt-1 font-sans leading-relaxed">
             Direct factory pricing &amp; consultation with founders Arjun &amp; Ajay Ji.
@@ -3052,12 +3083,12 @@
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Your Name *</label>
+              <label for="popup-name" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Your Name *</label>
               <input type="text" id="popup-name" required placeholder="e.g. Vikram Sharma" 
                      class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs sm:text-[13px] font-sans font-medium transition outline-none bg-[#FAF8F5]">
             </div>
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Phone / WhatsApp *</label>
+              <label for="popup-phone" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Phone / WhatsApp *</label>
               <input type="tel" id="popup-phone" required placeholder="+91 98XXX XXXXX" 
                      class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs sm:text-[13px] font-sans font-medium transition outline-none bg-[#FAF8F5]">
             </div>
@@ -3065,12 +3096,12 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Location / Colony *</label>
+              <label for="popup-location" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Location / Colony *</label>
               <input type="text" id="popup-location" required placeholder="e.g. Preet Vihar, Noida" 
                      class="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs sm:text-[13px] font-sans font-medium transition outline-none bg-[#FAF8F5]">
             </div>
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Requirement</label>
+              <label for="popup-layout" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Requirement</label>
               <select id="popup-layout" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs font-sans font-medium transition outline-none bg-[#FAF8F5]">
                 <option value="L-Shaped Modular Kitchen">L-Shaped Kitchen</option>
                 <option value="Parallel / Galley Kitchen">Parallel Kitchen</option>
@@ -3085,7 +3116,7 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Project Stage</label>
+              <label for="popup-stage" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Project Stage</label>
               <select id="popup-stage" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs font-sans font-medium transition outline-none bg-[#FAF8F5]">
                 <option value="Planning / Exploring Ideas">Planning / Exploring</option>
                 <option value="Civil Work Underway">Civil Work Underway</option>
@@ -3093,7 +3124,7 @@
               </select>
             </div>
             <div>
-              <label class="block text-[10px] font-heading font-bold uppercase tracking-[0.12em] text-[#8C7756] mb-1">Where Did You Find Us?</label>
+              <label for="popup-source" class="block text-xs font-sans font-semibold uppercase tracking-wider text-[#8C7756] mb-1">Where Did You Find Us?</label>
               <select id="popup-source" class="w-full px-3 py-2.5 rounded-xl border border-stone-200 focus:border-[#8C7756] focus:ring-2 focus:ring-[#8C7756]/15 text-slate-900 text-xs font-sans font-medium transition outline-none bg-[#FAF8F5]">
                 <option value="Instagram / Meta Ads">Instagram / Meta Ads</option>
                 <option value="Google Search / Google Maps">Google / Google Maps</option>
@@ -3117,14 +3148,14 @@
 
           <!-- Submit Button -->
           <button type="submit" 
-                  class="w-full py-3 sm:py-3.5 px-4 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-2">
+                  class="w-full min-h-[46px] py-3 px-5 bg-[#8C7756] hover:bg-[#736145] text-white rounded-full font-sans font-semibold text-sm shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2">
             <span>Get Free 3D Design &amp; Factory Quote</span>
             <span class="text-sm">&rarr;</span>
           </button>
         </form>
 
         <!-- Clean Footnote -->
-        <div class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 mt-3.5 pt-2.5 border-t border-stone-100 text-[10px] font-sans text-slate-400">
+        <div class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 mt-3.5 pt-2.5 border-t border-stone-100 text-[10px] font-sans text-slate-600">
           <span>10-Yr Direct Warranty</span>
           <span>&bull;</span>
           <span>F-165 Jagat Puri, East Delhi</span>
@@ -3205,10 +3236,12 @@
         const isHidden = menu.classList.contains('hidden');
         if (isHidden) {
           menu.classList.remove('hidden');
+          toggle.setAttribute('aria-expanded', 'true');
           if (hamburger) hamburger.classList.add('hidden');
           if (closeIcon) closeIcon.classList.remove('hidden');
         } else {
           menu.classList.add('hidden');
+          toggle.setAttribute('aria-expanded', 'false');
           if (hamburger) hamburger.classList.remove('hidden');
           if (closeIcon) closeIcon.classList.add('hidden');
         }
@@ -3217,6 +3250,7 @@
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
           menu.classList.add('hidden');
+          toggle.setAttribute('aria-expanded', 'false');
           if (hamburger) hamburger.classList.remove('hidden');
           if (closeIcon) closeIcon.classList.add('hidden');
         });
@@ -3922,7 +3956,7 @@
       const highlightsHtml = data.highlights.map(h => `
         <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-stone-200/80 shadow-sm">
           <span class="w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&check;</span>
-          <span class="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">${h}</span>
+          <span class="text-sm sm:text-[15px] text-slate-700 font-sans leading-relaxed">${h}</span>
         </div>
       `).join('');
 
@@ -3944,7 +3978,7 @@
             </div>
             <div class="pt-4 mt-4 border-t border-stone-100 flex items-center justify-between gap-3">
               <a href="https://wa.me/919910270754?text=${encodeURIComponent('Hi Arjun Ji, I am viewing the "' + item.title + '" under ' + data.title + ' on your website. Please share factory pricing and 3D CAD details.')}"
-                 target="_blank"
+                 target="_blank" rel="noopener noreferrer"
                  class="text-xs font-heading font-bold text-[#8C7756] hover:text-slate-900 uppercase tracking-wider flex items-center gap-1.5 transition">
                 <span>Get Factory Quote</span>
                 <span>&rarr;</span>
@@ -4003,17 +4037,17 @@
                 <span class="w-2 h-2 rounded-full bg-amber-400"></span>
                 <span>${data.eyebrow}</span>
               </div>
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-normal text-white leading-tight">
+              <h1 class="typo-hero text-white">
                 ${data.title}
               </h1>
               <p class="text-sm sm:text-base text-stone-200 font-sans leading-relaxed">
                 ${data.subtitle}
               </p>
               <div class="pt-3 flex flex-wrap items-center gap-3.5">
-                <button onclick="openInquiryModal()" class="px-7 py-3.5 rounded-full bg-[#8C7756] hover:bg-[#736145] text-white text-xs font-heading font-bold uppercase tracking-wider transition shadow-lg">
+                <button onclick="openInquiryModal()" class="px-7 py-3.5 rounded-full bg-[#8C7756] hover:bg-[#736145] text-white text-sm font-sans font-semibold min-h-[46px] inline-flex items-center justify-center transition shadow-md hover:shadow-lg">
                   Book Free 3D Design &amp; Quote &rarr;
                 </button>
-                <a href="https://wa.me/919910270754?text=${encodeURIComponent('Hi Arjun Ji, I am exploring ' + data.title + ' on your website. Please share factory specifications and rates.')}" target="_blank" class="px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider transition shadow-lg">
+                <a href="https://wa.me/919910270754?text=${encodeURIComponent('Hi Arjun Ji, I am exploring ' + data.title + ' on your website. Please share factory specifications and rates.')}" target="_blank" rel="noopener noreferrer" class="px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-sm font-sans font-semibold min-h-[46px] inline-flex items-center justify-center transition shadow-md hover:shadow-lg">
                   WhatsApp Arjun Ji
                 </a>
               </div>
@@ -4027,8 +4061,8 @@
             <div class="lg:col-span-7 space-y-6">
               <div>
                 <span class="text-xs font-heading font-semibold uppercase tracking-widest text-[#8C7756]">WHY CHOOSE AAICA?</span>
-                <h2 class="text-2xl sm:text-4xl font-heading text-slate-900 mt-1 leading-tight">
-                  Factory-Crafted <span class="italic font-normal">${data.title}</span>
+                <h2 class="typo-h2 text-slate-900 mt-1">
+                  Factory-Crafted <span class="font-medium text-[#8C7756]">${data.title}</span>
                 </h2>
                 <p class="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mt-3">
                   ${data.description}
@@ -4079,10 +4113,10 @@
           <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
             <div class="text-center max-w-2xl mx-auto mb-12">
               <span class="text-xs font-heading font-semibold uppercase tracking-widest text-[#8C7756]">CURATED DESIGNS</span>
-              <h2 class="text-3xl sm:text-4xl font-heading text-slate-900 mt-1">
-                Signature <span class="italic font-normal">${data.title}</span> Concepts
+              <h2 class="typo-h2 text-slate-900 mt-1">
+                Signature <span class="font-medium text-[#8C7756]">${data.title}</span> Concepts
               </h2>
-              <p class="text-xs sm:text-sm text-slate-500 font-sans mt-2">
+              <p class="text-sm text-slate-600 font-sans mt-2">
                 Click any design to request exact factory manufacturing pricing and a complimentary 3D CAD layout for your home.
               </p>
             </div>
@@ -4157,6 +4191,7 @@
 
     window.addEventListener('hashchange', handleHashRouting);
     window.addEventListener('DOMContentLoaded', handleHashRouting);
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeInquiryModal(); closeProjectLightbox(); } });
 
   </script>
 
@@ -4165,7 +4200,7 @@
     <div class="relative w-full max-w-4xl bg-white border border-stone-200 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[92vh]">
       
       <!-- Close Button -->
-      <button onclick="closeProjectLightbox()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-[#8C7756] text-slate-900 hover:text-white flex items-center justify-center transition border border-stone-200 shadow-md text-lg">
+      <button type="button" aria-label="Close gallery preview" onclick="closeProjectLightbox()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-[#8C7756] text-slate-900 hover:text-white flex items-center justify-center transition border border-stone-200 shadow-md text-lg">
         &times;
       </button>
 
@@ -4187,22 +4222,22 @@
 
           <div class="space-y-3 pt-4 border-t border-stone-200 text-xs font-sans">
             <div>
-              <span class="text-slate-400 block text-[10px] font-heading font-bold uppercase tracking-wider">Carcass &amp; Finish</span>
+              <span class="text-slate-600 block text-[10px] font-heading font-bold uppercase tracking-wider">Carcass &amp; Finish</span>
               <p id="lb-finish" class="text-slate-800 mt-0.5 leading-relaxed font-medium"></p>
             </div>
             <div>
-              <span class="text-slate-400 block text-[10px] font-heading font-bold uppercase tracking-wider">Hardware &amp; Motion</span>
+              <span class="text-slate-600 block text-[10px] font-heading font-bold uppercase tracking-wider">Hardware &amp; Motion</span>
               <p id="lb-hardware" class="text-slate-800 mt-0.5 leading-relaxed font-medium"></p>
             </div>
             <div>
-              <span class="text-slate-400 block text-[10px] font-heading font-bold uppercase tracking-wider">Handover Timeline</span>
+              <span class="text-slate-600 block text-[10px] font-heading font-bold uppercase tracking-wider">Handover Timeline</span>
               <p id="lb-handover" class="text-emerald-700 mt-0.5 font-bold"></p>
             </div>
           </div>
         </div>
 
         <div class="pt-6 mt-6 border-t border-stone-200 space-y-3">
-          <a id="lb-wa-btn" href="#" target="_blank" class="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md">
+          <a id="lb-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-bold uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
             <span>Ask Arjun Ji About This Blueprint</span>
           </a>
@@ -4218,7 +4253,7 @@
 
   <!-- Floating WhatsApp Action Button (Direct to Arjun Ji) -->
   <a href="https://wa.me/919910270754?text=Hi%20Arjun%20Ji%2C%20I%20am%20exploring%20modular%20kitchens%20on%20your%20website%20and%20would%20like%20to%20discuss%20a%20design%20consultation." 
-     target="_blank" 
+     target="_blank" rel="noopener noreferrer" 
      rel="noopener noreferrer"
      class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 hover:shadow-[#25D366]/50 transition-all duration-300"
      title="Chat with Arjun Ji on WhatsApp"
